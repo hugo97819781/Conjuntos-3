@@ -1,7 +1,7 @@
-This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)  (format=lualatex 2025.11.23)  5 FEB 2026 01:52
+This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)  (format=lualatex 2025.11.23)  16 FEB 2026 13:40
  restricted system commands enabled.
-**ejercicio-1.tex
-(./ejercicio-1.tex
+**ejercicio-2.tex
+(./ejercicio-2.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
 Lua module: luaotfload 2024-12-03 v3.29 Lua based OpenType font support
@@ -462,13 +462,13 @@ File: t1stix2.fd 2018/04/02 v2.0.0-latex stix2 T1 font definitions
 File: l3backend-luatex.def 2025-10-09 L3 backend support: PDF output (LuaTeX)
 \l__color_backend_stack_int=\count288
 Inserting `l3color' in `luaotfload.parse_color'.)
-(./ejercicio-1.aux
+(./ejercicio-2.aux
 LaTeX Info: Redefining \. on input line 5.
 LaTeX Info: Redefining \% on input line 5.
 Package babel Info: 'spanish' activates 'spanish' shorthands.
 (babel)             Reported on input line 5.
 )
-\openout1 = ejercicio-1.aux
+\openout1 = ejercicio-2.aux
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
 LaTeX Font Info:    ... okay on input line 45.
@@ -557,14 +557,14 @@ File: ls2stix2tt.fd 2018/04/02 v2.0.0-latex stix2 typewriter LS2 font definitio
 ns
 )
 LaTeX Font Info:    Font shape `T1/stix2/m/sl' in size <12> not available
-(Font)              Font shape `T1/stix2/m/it' tried instead on input line 67.
+(Font)              Font shape `T1/stix2/m/it' tried instead on input line 62.
 LaTeX Font Info:    Font shape `T1/stix2/m/sl' in size <10> not available
-(Font)              Font shape `T1/stix2/m/it' tried instead on input line 67.
+(Font)              Font shape `T1/stix2/m/it' tried instead on input line 62.
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-(./ejercicio-1.aux
+(./ejercicio-2.aux
 LaTeX Info: Redefining \. on input line 5.
 LaTeX Info: Redefining \% on input line 5.
 )
@@ -575,32 +575,31 @@ L3 programming layer <2025-11-06>
 )
 
 Here is how much of LuaTeX's memory you used:
- 10798 strings out of 476081
+ 10794 strings out of 476081
  100000,794899 words of node,token memory allocated
- 651 words of node memory still in use:
-   4 hlist, 1 vlist, 1 rule, 4 glue, 25 kern, 1 glyph, 35 attribute, 52 glue_spe
-c, 19 attribute_list, 1 write nodes
-   avail lists: 1:1,2:577,3:108,4:6,5:124,6:68,7:1730,8:26,9:320,10:6,11:126
- 33166 multiletter control sequences out of 65536+600000
+ 654 words of node memory still in use:
+   4 hlist, 1 vlist, 1 rule, 4 glue, 28 kern, 1 glyph, 31 attribute, 52 glue_spe
+c, 17 attribute_list, 1 write nodes
+   avail lists: 1:1,2:523,3:92,4:6,5:110,6:64,7:1556,8:7,9:304,10:6,11:132
+ 33162 multiletter control sequences out of 65536+600000
  61 fonts using 4356303 bytes
  108i,20n,101p,11277b,526s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/stix2-type1/stix2-mathfrak.e
-nc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/stix2-type1/stix2-mathcal
-.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/stix2-type1/stix2-mathi
-t.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/stix2-type1/stix2-math
-rm.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/stix2-type1/stix2-mat
-hbb.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/stix2-type1/stix2-t1
-.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/stix2-type1/stix2-t1sc.
-enc}</usr/local/texlive/2025/texmf-dist/fonts/type1/public/stix2-type1/STIX2Math
-.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/stix2-type1/STIX2Tex
-t-Bold.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/stix2-type1/ST
-IX2Text-BoldItalic.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/st
-ix2-type1/STIX2Text-Italic.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
-ublic/stix2-type1/STIX2Text-Regular.pfb>
-Output written on ejercicio-1.pdf (1 page, 773546 bytes).
+{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/stix2-type1/stix2-mathcal.en
+c}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/stix2-type1/stix2-mathit.e
+nc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/stix2-type1/stix2-mathrm.
+enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/stix2-type1/stix2-mathbb
+.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/stix2-type1/stix2-t1.en
+c}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/stix2-type1/stix2-t1sc.enc
+}</usr/local/texlive/2025/texmf-dist/fonts/type1/public/stix2-type1/STIX2Math.pf
+b></usr/local/texlive/2025/texmf-dist/fonts/type1/public/stix2-type1/STIX2Text-B
+old.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/stix2-type1/STIX2
+Text-BoldItalic.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/stix2
+-type1/STIX2Text-Italic.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/publ
+ic/stix2-type1/STIX2Text-Regular.pfb>
+Output written on ejercicio-2.pdf (1 page, 765180 bytes).
 
-PDF statistics: 45 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+PDF statistics: 42 PDF objects out of 1000 (max. 8388607)
+ 33 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 131072)
  1 words of extra memory for PDF output out of 10000 (max. 100000000)
 
