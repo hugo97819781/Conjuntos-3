@@ -26,6 +26,11 @@
         \setenumerate[1]{label=\MakeLowercase{\roman*}), ref=\roman*}
         \setenumerate[2]{label=\MakeLowercase{\alph*}), ref=\alph*}
     \usepackage{stix2}
+    \usepackage{amsmath}
+    \usepackage{amsthm}
+	\renewcommand{\qedsymbol}{$\blacksquare$}
+	\addto\captionsspanish{\renewcommand{\proofname}{\normalfont\bfseries Demostración}}	
+	\newenvironment{solucion}{\renewcommand{\qedsymbol}{$\boxtimes$}\begin{proof}[\normalfont\bfseries Solución]}{\end{proof}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% E J E R C I C I O S %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -44,7 +49,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-    %\thispagestyle{beginstyle}
+    \thispagestyle{plain}
        \begin{center}
             {\fontsize{30}{60}\rmfamily \textbf{Ejercicio semanal 1}} \\ \vspace{.2cm} Teoría de Conjuntos III, 2026-2
        \end{center}
@@ -63,6 +68,12 @@
         \item Pruebe que $D$ es denso en $\mathbb{P}$. \hfill \textbf{(5 pts)}
 \item De un ejemplo de orden parcial $\mathbb{P}$ donde el conjunto $D$ sea más que numerable. \hfill \textbf{(5 pts)}
     \end{enumerate}
-
+    \begin{proof}{\bfseries (\textit{i})}
+        Sea $y \in P$ cualquiera. Sin pérdida de generalidad $y \notin D$, seguido de esto, se obtiene que $y \parallel p$ y existe $r \in P$ con $r \leq y,p$. Si $r \in D$, entonces $D \cap L(y) \neq \emptyset$. Por otro lado, $r \notin D$ implica que $r \parallel q$ y, así, existe $s \in P$ con $s \leq r,q$. Nótese que, como $r \leq y,p$, entonces $s \leq y$ y $s \leq p,q$, por tanto $s \in D$; en este caso, $D \cap L(y)$ tampoco es vacío. Por tanto, $D$ es denso.
+    \end{proof}
+    \begin{solucion}{\bfseries (\textit{ii})}
+        Sea $\kappa \geq \aleph_1$, es vacuo que $\emptyset$ es un orden parcial en $\kappa$. Cualesquiera dos elementos (distintos) de $\mathbb{P}:=(\kappa,\emptyset)$ son incompatibles. Consecuentemente, para $p=q=0 \in \kappa$ se tiene que $D=\kappa$ es más que numerable.
+    \end{solucion}
+    
 \end{document}
 
