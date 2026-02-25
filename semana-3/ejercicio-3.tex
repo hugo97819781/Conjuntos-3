@@ -1,0 +1,67 @@
+%%% FORMATO E IDIOMA %%%
+    \documentclass[letterpaper,DIV=15,12pt]{scrartcl}
+    \usepackage[spanish,mexico,shorthands=off,es-lcroman]{babel}
+    \usepackage{scrlayer-scrpage}
+        \clearpairofpagestyles
+        \ihead{\footnotesize \textit{Teoría de Conjuntos III}}
+        \ohead{\footnotesize \textit{2026-2}}
+        \cfoot{\normalfont\thepage}
+        \addtokomafont{title}{\bfseries \rmfamily}
+        \setlength{\headsep}{5pt}
+        \newpairofpagestyles{beginstyle}{
+            \clearpairofpagestyles
+            \KOMAoptions{headsepline=false}
+            \cfoot{\footnotesize \pagemark}
+            \cfoot{\normalfont\thepage}
+        }
+        \addtokomafont{section}{\raggedleft\rmfamily}
+        \addtokomafont{subsection}{\raggedleft\rmfamily}
+        \addtokomafont{subsubsection}{\raggedleft\rmfamily}
+        \setlength{\headsep}{8pt}
+        \setlength{\footskip}{20pt}
+        \setlength{\textheight}{600pt}
+%%% PAQUETES %%%
+    \usepackage{ifthen}
+    \usepackage[shortlabels]{enumitem}
+        \setenumerate[1]{label=\MakeLowercase{\roman*}), ref=\roman*}
+        \setenumerate[2]{label=\MakeLowercase{\alph*}), ref=\alph*}
+    \usepackage{stix2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% E J E R C I C I O S %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \newcounter{Ejer}
+    \newcounter{Pts}
+    \setcounter{Ejer}{1}
+    \setcounter{Pts}{1}
+    \newcommand{\pts}{}
+    \newenvironment{ejercicio}[1]{\noindent
+        \ifthenelse{\equal{#1}{1}}{\renewcommand{\pts}{\textbf{(#1 pt)}}}{\renewcommand{\pts}{\textbf{(#1 pts)}}}\textbf{Ej. \theEjer} \pts\stepcounter{Ejer}}{}
+%%% C O M A N D O S %%%
+    \renewcommand{\emptyset}{\varnothing}
+    \newcommand{\tq}{\mid}
+%%%%%%%%%%%%%%%%%%%%%%%
+%% D O C U M E N T O %%
+%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+    %\thispagestyle{beginstyle}
+       \begin{center}
+            {\fontsize{30}{60}\rmfamily \textbf{Ejercicio semanal 3}} \\ \vspace{.2cm} Teoría de Conjuntos III, 2026-2
+       \end{center}
+        \begin{flushright}
+            \footnotesize \hfill Profesor: Luis Jesús Turcio Cuevas.\\
+            \hfill Ayudante: Hugo Víctor García Martínez.
+        \end{flushright}
+   
+       \textit{\textbf{\textsc{Instrucciones.}} Esta tarea es \textbf{individual} y deberá ser entregada \textbf{presencial y personalmente} el día \textbf{lunes 2 de marzo} al inicio la clase.}\vspace{.3cm}
+
+    \begin{ejercicio}{10}
+        Sean $\mathscr{I}:=\{ [a,b) \mid a,b \in \mathbb{R} \}$ y $B:=\{ \bigcup F \mid F \subseteq \mathscr{I} \}$.
+        \begin{enumerate}
+          \item ¿Es $(B,\subseteq)$ un álgebra de Boole?
+          \item Prueba que para ningún conjunto $X$ existe una función $f:\mathscr{P}(X) \to B$ de modo que para cualesquiera $A,B \subseteq X$ ocurra $A \subseteq B$ si y sólo si $f(A) \subseteq f(B)$. Es decir, muestra que $(\mathscr{P}(X),\subseteq)$ y $(B,\subseteq)$ no son órdenes isomorfos.
+        \end{enumerate}
+    \end{ejercicio}
+
+\end{document}
+
