@@ -26,9 +26,12 @@
         \setenumerate[1]{label=\MakeLowercase{\roman*}), ref=\roman*}
         \setenumerate[2]{label=\MakeLowercase{\alph*}), ref=\alph*}
     \usepackage{stix2}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \usepackage{amsmath}
+    \usepackage{amsthm}
+	\renewcommand{\qedsymbol}{$\blacksquare$}
+	\addto\captionsspanish{\renewcommand{\proofname}{\normalfont\bfseries Demostración}}	
+	\newenvironment{solucion}{\renewcommand{\qedsymbol}{$\boxtimes$}\begin{proof}[\normalfont\bfseries Solución]}{\end{proof}}
 %%% E J E R C I C I O S %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \newcounter{Ejer}
     \newcounter{Pts}
     \setcounter{Ejer}{1}
@@ -39,12 +42,10 @@
 %%% C O M A N D O S %%%
     \renewcommand{\emptyset}{\varnothing}
     \newcommand{\tq}{\mid}
-%%%%%%%%%%%%%%%%%%%%%%%
 %% D O C U M E N T O %%
-%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-
-    %\thispagestyle{beginstyle}
+\thispagestyle{plain}
+    
        \begin{center}
             {\fontsize{30}{60}\rmfamily \textbf{Ejercicio semanal 2}} \\ \vspace{.2cm} Teoría de Conjuntos III, 2026-2
        \end{center}
@@ -56,8 +57,11 @@
        \textit{\textbf{\textsc{Instrucciones.}} Esta tarea es \textbf{individual} y deberá ser entregada \textbf{presencial y personalmente} el día \textbf{miércoles 10 de febrero} al inicio la clase.}\vspace{.3cm}
 
     \begin{ejercicio}{10}
-        Sea $\mathbb{P}=(P,\leq)$ un orden parcial y $G \subseteq P$ un filtro de $\mathbb{P}$. Pruebe que $G$ es un filtro genérico si y sólo si para toda anticadena maaximal $A$ de $\mathbb{P}$, $A \cap G \neq \emptyset$.
+        Sea $\mathbb{P}=(P,\leq)$ un orden parcial y $G \subseteq P$ un filtro de $\mathbb{P}$. Pruebe que $G$ es un filtro genérico si y sólo si para toda anticadena maximal $A$ de $\mathbb{P}$, $A \cap G \neq \emptyset$.
     \end{ejercicio}
+    \begin{proof}
+        Supóngase primero que $G$ es filtro genérico y sea $A$ una anticadena maximal de $\mathbb{P}$. Entonces $D=\downarrow A = \{ p \in P \tq \exists a \in A \, (p \leq a) \}$ y existen $g \in G$ y $a \in A$ tales que $g \leq a$. Puesto que $G$ es filtro, es cerrado bajo cotas superiores, por lo que $g \in A$ y $G \cap A\neq \emptyset$.
 
+        Ahora, supóngase que $G$ interseca a cada anticadena maximal de $\mathbb{P}$ y sea $D \subseteq P$ denso. Como $D$ es denso, contiene una anticadena maximal (demostrado en clase), por lo que $G$ interseca a tal anticadena, y con ello $G \cap D \neq \emptyset$.
+    \end{proof}
 \end{document}
-

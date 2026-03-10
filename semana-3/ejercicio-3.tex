@@ -25,10 +25,13 @@
     \usepackage[shortlabels]{enumitem}
         \setenumerate[1]{label=\MakeLowercase{\roman*}), ref=\roman*}
         \setenumerate[2]{label=\MakeLowercase{\alph*}), ref=\alph*}
+    \usepackage{amsmath}
+    \usepackage{amsthm}\usepackage[T1]{fontenc}
     \usepackage{stix2}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\renewcommand{\qedsymbol}{$\blacksquare$}
+	\addto\captionsspanish{\renewcommand{\proofname}{\normalfont\bfseries Demostración}}	
+	\newenvironment{solucion}{\renewcommand{\qedsymbol}{$\boxtimes$}\begin{proof}[\normalfont\bfseries Solución]}{\end{proof}}
 %%% E J E R C I C I O S %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \newcounter{Ejer}
     \newcounter{Pts}
     \setcounter{Ejer}{1}
@@ -38,13 +41,11 @@
         \ifthenelse{\equal{#1}{1}}{\renewcommand{\pts}{\textbf{(#1 pt)}}}{\renewcommand{\pts}{\textbf{(#1 pts)}}}\textbf{Ej. \theEjer} \pts\stepcounter{Ejer}}{}
 %%% C O M A N D O S %%%
     \renewcommand{\emptyset}{\varnothing}
-    \newcommand{\tq}{\mid}
-%%%%%%%%%%%%%%%%%%%%%%%
+    \newcommand{\tq}{:}
 %% D O C U M E N T O %%
-%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+\thispagestyle{plain}
 
-    %\thispagestyle{beginstyle}
        \begin{center}
             {\fontsize{30}{60}\rmfamily \textbf{Ejercicio semanal 3}} \\ \vspace{.2cm} Teoría de Conjuntos III, 2026-2
        \end{center}
@@ -63,5 +64,13 @@
         \end{enumerate}
     \end{ejercicio}
 
-\end{document}
+    \begin{solucion}\textit{\textbf{(i)}}
+    Sean $U,V \in B$, entonces existen $F,G \subseteq \mathscr{I}$ tales que $U=\bigcup F$ y $V=\bigcup G$. Como $F \cup G \subseteq \mathscr{I}$ y $U \cup V = \bigcup (F \cup G)$, entonces $U \cup V \in B$. Ahora, si $[x,y) \in F$ y $[a,b) \in G$, entonces
+    \[ [x,y) \cap [a,b) = [\max\{x,a\}, \min\{y,b\}) \in \mathscr{I} \, ; \]
+    por lo tanto $H = \{ f \cap g \tq (f,g) \in F \times G \} \subseteq \mathscr{I}$, y así, $U \cap V = \bigcup H \in B$.
 
+    Luego, $B$ tiene ínfimos y supremos dos a dos y son la intersección y la unión. De ser $B$ un álgebra de Boole, sería necesario que para cada $U \in B$, $U U^* = 0_B$ y $U + U^*=1_B$; esto es, $U \cap U^* = \emptyset$ y $U \cup U^* = \mathbb{R}$, de donde $U^* = \mathbb{R} \setminus U$, probando\footnote{Es necesario demostrar que los complementos de $B$ deberían ser, en caso de existir, los complementos respecto $\mathbb{R}$. El hecho de que el orden sea contención, no siempre implica esto. Por ejemplo, los abiertos regulares $\operatorname*{RO}$, ordenados por contención, forman un álgebra de Boole, hay ínfimos, supremos y complementos, pero no todos ellos coinciden con los ``de siempre''.} que $B$ debería ser cerrado bajo complementos respecto $\mathbb{R}$.
+
+    Nótese que $\mathbb{R} \setminus \{0\} = \bigcup \big( \big\{ [x-1,x) \tq x < 0 \big\} \cup \big\{ [x,x+1) \tq x > 0 \big\} \big) \in B$. Sin embargo, $\{ 0 \}$ no es elemento de $B$, pues cada elemento de $B$ debe contener un intervalo no vacío de la forma $[a,b)$, como estos intervalos tienen más de un elemeno, no es posible que $\{0\} \in B$. Por lo tanto, $B$ no es cerrado bajo complementos respecto $\mathbb{R}$.
+    \end{solucion}
+\end{document}
