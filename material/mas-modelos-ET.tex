@@ -1,0 +1,151 @@
+%%% FORMATO E IDIOMA %%%
+    \documentclass[letterpaper,DIV=15,12pt]{scrartcl}
+    \usepackage[spanish,mexico,shorthands=off,es-lcroman]{babel}
+    \usepackage{scrlayer-scrpage}
+        \clearpairofpagestyles
+        \ihead{\footnotesize \textit{Teoría de Conjuntos III}}
+        \ohead{\footnotesize \textit{2026-2}}
+        \cfoot{\normalfont\thepage}
+        \addtokomafont{title}{\bfseries \rmfamily}
+        \setlength{\headsep}{5pt}
+        \newpairofpagestyles{beginstyle}{
+            \clearpairofpagestyles
+            \KOMAoptions{headsepline=false}
+            \cfoot{\footnotesize \pagemark}
+            \cfoot{\normalfont\thepage}
+        }
+        \addtokomafont{section}{\raggedleft\rmfamily}
+        \addtokomafont{subsection}{\raggedleft\rmfamily}
+        \addtokomafont{subsubsection}{\raggedleft\rmfamily}
+        \setlength{\headsep}{8pt}
+        \setlength{\footskip}{20pt}
+        \setlength{\textheight}{600pt}
+%%% PAQUETES %%%
+    \usepackage{ifthen}
+    \usepackage[shortlabels]{enumitem}
+        \setenumerate[1]{label=\MakeLowercase{\roman*}), ref=\roman*}
+        \setenumerate[2]{label=\MakeLowercase{\alph*}), ref=\alph*}
+    \usepackage{amsmath}
+    \usepackage{amsthm}\usepackage[T1]{fontenc}
+    \usepackage{stix2}
+	\renewcommand{\qedsymbol}{$\blacksquare$}
+	\addto\captionsspanish{\renewcommand{\proofname}{\normalfont\bfseries Demostración}}	
+	\newenvironment{solucion}{\renewcommand{\qedsymbol}{$\boxtimes$}\begin{proof}[\normalfont\bfseries Solución]}{\end{proof}}
+
+    \usepackage{amsthm}
+		\newtheoremstyle{manual}{3pt}{3pt}{\normalfont}{}{\bfseries}{.}{.5em}{#1 #3}
+		\theoremstyle{manual}
+		\newtheorem{proposicion}{Proposición}
+        \newtheorem{definicion}{Definición}
+        \newtheorem{teorema}{Teorema}
+        \newtheorem{lema}{Lema}
+        \newtheorem{corolario}{Corolario}
+        \newtheorem*{ejercicio*}{Ejercicio}        
+%%% C O M A N D O S %%%
+    \renewcommand{\emptyset}{\varnothing}
+    \newcommand{\tq}{:}
+%% D O C U M E N T O %%
+\begin{document}
+\thispagestyle{plain}
+
+    \begin{center}
+        {\fontsize{30}{60}\rmfamily \textbf{Más sobre modelos ET}} \\ \vspace{.2cm} Teoría de Conjuntos III, 2026-2
+    \end{center}
+    \begin{flushright}
+        \footnotesize \hfill Profesor: Luis Jesús Turcio Cuevas.\\
+        \hfill Ayudante: Hugo Víctor García Martínez.
+    \end{flushright}
+
+    A continuación se prueban los siguientes criterios que permiten determinar cuándo un modelo transitivo estándar satisface los axiomas de potencia y separación*. Utilizaremos que las nociones de ``ser elemento, subconjunto, ser vacío, etc...'' son $M$-$V$ absolutas para clases transitivas $M$.
+    
+    \begin{proposicion}[1]\itshape
+        Sea $M$ una calse (no necesariamente propia) transitiva.
+        \begin{enumerate}
+            \item Si para cada $x \in M$ y cada $y \subseteq x$, $y \in M$, \textbf{entonces} $M$ modela el esquema de separación.
+            \item $M$ modela el axioma de separación \textbf{si y sólo si} para cada $x \in M$ ocurre $\mathscr{P}(x) \cap M \in M$.
+        \end{enumerate}
+    \end{proposicion}
+    \begin{proof}\textbf{(i)}
+        Supóngase que, si $x \in M$ y $y \subseteq x$, entonces $y \in M$; es decir, $\mathscr{P}(x) \subseteq M$. Sea $\varphi$ una fórmula de la teoría de conjuntos, veamos que
+        \[ M \vDash \forall x \, \exists y \, \forall w \, \Big( w \in y \leftrightarrow \big( w \in x \land \varphi(w) \big) \Big) \, , \]
+        es decir, que ``$\forall x \in M \, \exists y \in M \, \forall w \, (w \in y \leftrightarrow (w \in x \land \varphi^M(w)))$'' se cumple.
+
+        En efecto, sean $x \in M$ y $y:=\{ w \in x \tq \varphi^M (w) \}$, entonces $y$ es conjunto (en $V$) por separación (de fuera). Por hipótesis, $y \in M$, claramente, para cada $w \in M$ ocurre que $w \in y$ si y sólo si $w \in x$ y $\varphi^M(w)$. Por lo tanto $M \vDash \operatorname*{\textsc{Sep}}^*$.
+    \end{proof}
+    \begin{proof}\textbf{(ii)}
+        Supóngase primero que $M \vDash \operatorname*{\textsc{Pot}}$ y sea $x \in M$, entonces existe $y \in M$ tal que para cada $w \in M$, $w \in y$ ocurre si y sólo si $(w \subseteq x)^M \equiv w \subseteq x$. Como $M$ es transitiva, $y \subseteq M$, entonces de lo anterior, para todo conjunto $w$ (en $V$), $w \in y$ si y sólo si $w \in M$ y $w \subseteq x$, esto es, $y = \mathscr{P}(x) \cap M$.
+
+        ($\leftarrow$) Ahora, supóngase que para cada $x \in M$ ocurre $\mathscr{P}(x) \cap M \in M$, veamos que:
+        \[ M \vDash \forall x \, \exists y \, \forall w \, \big( w \in y \leftrightarrow ( w \subseteq x ) \big) \, , \]
+        es decir, que ``$\forall x \in M \, \exists y \in M \, \forall w \in M \, \big( w \in y \leftrightarrow ( w \subseteq x ) \big)$'' es verdadera.
+
+        Efectivamente, sean $x \in M$ y $y=\mathscr{P} \cap M$. Por hipótesis, $y \in M$, además, para cada $w \in M$ ocurre que $w \in y$ si y sólo si $w \in M$ (lo cual ya ocurre) y $x \in \mathscr{P}(x)$, es decir, $w \subseteq x$. Por lo tanto, se concluye que $M \vDash \operatorname*{\textsc{Pot}}$.
+    \end{proof}
+
+    El recíproco del punto (i) de la proposión anterior es falso en general. Se ha adelantado que existe un modelo estándar, transitivo y numerable $M$ de (buena parte de) \textsc{Zfc}, incluyendo todo el esquema de separación* y el axioma de infinito. Este modelo, por tanto, tiene a $\omega$ como elemento (recuerde que la fórmula $x=\omega$ es $M$-$V$ absoluta), por ello, no puede ser que $\mathscr{P}(\omega) \subseteq M$, esto contradiría la numerabilidad de $M$.
+
+    Conviene entonces reflexionar sobre al menos dos cosas, dado lo comentado en el párrafo anterior, la primera es notar que los métodos para demostrar que un modelo, estándar y transitivo, satisface el axioma de separación*, pueden variar bastante, dependiendo del modelo. La segunda es preguntarse para qué tan útil resulta ese punto (i). Exploremos esto último.    
+
+    Junto con los criterios vistos en clase, se puede utilizar la proposición anterior para concluir que $\operatorname*{BF}$ modela todo \textsc{Zfc}; y también, que si $\gamma$ es ordinal límite, entonces $\operatorname*{BF}_\gamma \vDash \operatorname*{\textsc{Zfc-Rmp}}^*$. Encontremos un modelo (conjunto, en $V$) más, que nos permite dar otro resultado de (no) equiconsistencia.
+
+    \begin{definicion}[2]\itshape
+        La \textbf{cerradura transitiva} de un conjunto $x$, denotada $\operatorname*{tcl}(x)$, es el $\subseteq$-mínimo conjunto transitivo $T$ tal que $x \subseteq T$.
+
+        Este operador es claramente monótono, e idempotente para conjuntos transitivos.
+    \end{definicion}
+    
+    Dentro de \textsc{Zfc}, se puede mostrar que la cerradura transitiva existe para cualquier conjunto. Es sencillo además, demostrar que para cada conjunto $x$:
+    \begin{equation}\label{ident}
+        \operatorname*{tcl}(x) = x \cup \bigcup_{y \in x} \operatorname*{tcl}(y)
+    \end{equation}
+    Nótese que si $w \in x \cup \bigcup_{y \in x} \operatorname*{tcl}(y)$, entonces $w \in x \subseteq \operatorname*{tcl}(x)$, o bien, existe $y \in x$ para el cual $w \in \operatorname*{tcl}(y)$. En este último caso, nótese que $y \in \operatorname*{tcl}(x)$, así que $y \subseteq \operatorname*{tcl}(x)$, y consecuentemente, $\operatorname*{tcl}(y) \subseteq \operatorname*{tcl}(\operatorname*{tcl}(x)) = \operatorname*{tcl}(x)$. Mostrando que, en cualquier caso $w \in \operatorname*{tcl}(x)$, por lo que ocurre la contención $\supseteq$ de (\ref{ident}). Para la contención recíproca, basta ver que el conjunto $x \cup \bigcup_{y \in x} \operatorname*{tcl}(y)$ es transitivo (ya que, por definición, contiene a $x$), esto se deja moral :)
+    
+
+    \begin{definicion}[3]\itshape
+        Para cada cardinal $\kappa$, se define $\operatorname*{H}(\kappa)=\{ x \tq |\operatorname*{tcl}(x)| < \kappa  \}$. Particularmente, $\operatorname*{H}(\aleph_1)$ es el conjunto de conjuntos \textbf{hereditariamente contables}, se denota por $\operatorname*{HC}$.
+    \end{definicion}
+
+    Bajo el axioma de buena buena fundación, cada $H(\kappa)$ es conjunto, pues se separa (axioma de separación*) del conjunto $\operatorname*{BF}_\kappa$.
+
+    \begin{lema}[4]
+        El esquema de reemplazo, implica el de separación.
+    \end{lema}
+    \textit{\bfseries Hint.} Dada una fórmula $\varphi(x)$, se define el funcional $\psi(x,y) \leftrightharpoons (x=y \land \varphi(x))$. Para cada conjunto $A$, la imagen de $A$ bajo tal funcional, es $\{x \in A \tq \varphi(x)\}$. \hfill $\boxtimes$.
+
+    El lema anterior facilita la prueba de lo siguiente.
+
+    \begin{proposicion}[5]
+        (Bajo \textsc{Zfc}) $\operatorname*{HC}$ es un modelo (conjunto) de $\operatorname*{\textsc{Zfc-Pot}}$.
+    \end{proposicion}
+    \begin{proof}
+        Nótese que $\operatorname*{HC}$ es un conjunto transitivo, pues, para cada $x \in \operatorname*{HC}$ y cada $y \in x$, se tiene que $y \subseteq X$. Así, $\operatorname*{tcl}(y) \subseteq \operatorname*{tcl}(x)$, y con ello, que $y \in \operatorname*{HC}$.
+
+        Los axiomas de extensionalidad, par, unión, infinito, son sencillos de verificar. Nótese que vacío se satisfará, pues hay axioma del infinito.
+        
+        Para el axioma de elección, sea $x \in \operatorname*{HC}$ un conjunto no vacío, de conjuntos no vacíos, entonces por \textsc{AC} (en $V$), $x$ admite un conjunto de elección $A \subseteq x$ (noción absoluta para modelos transitivos). Como $A \subseteq x$, entonces $\operatorname*{tcl}(A) \subseteq \operatorname*{tcl}(x)$; y con ello, $A \in \operatorname*{HC}$.
+
+        Restan únicamente, los esquemas de separación* y reemplazo*. Supóngase que $f$ una función tal que $x=\operatorname*{dom}(f) \in \operatorname*{HC}$ y supóngase que $\operatorname*{im}(f) \subseteq \operatorname*{HC}$, por un teorema visto en clase, basta verificar que $\operatorname*{im}(f) \in \operatorname*{HC}$.
+
+        Y en efecto, de (\ref{ident}) se obtiene que:
+        \[ \operatorname*{tcl}(\operatorname*{im}(f)) = \operatorname*{im}(f) \cup \bigcup_{y \in x} \operatorname*{tcl}(f(y)) \]
+
+        Nótese que, $x \subseteq \operatorname*{tcl}(x) \preccurlyeq \omega$, consecuentemente, $\operatorname*{im}(f)$ es contable. Ahora, dado $y \in x$, se tiene que $f(y) \in \operatorname*{im}(f) \subseteq \operatorname*{HC}$, así que $\operatorname*{tcl}(f(y)) \preccurlyeq \omega$. Así, de la igualdad anterior se tiene que $\operatorname*{tcl}(\operatorname*{im}(f))$ es un conjunto contable, unido con, una unión numerable de conjuntos contables. Por lo tanto $|\operatorname*{tcl}(\operatorname*{im}(f))| \leq \omega$, mostrando que $\operatorname*{im}(f) \in \operatorname*{HC}$. Así, $\operatorname*{HC}$ modela el esquema de reemplazo* (así mismo, el de separación*).
+    \end{proof}
+
+    Obsérvese que en la prueba anterior, lo único ``especial'' de $\aleph_1$ que se utilizó, fue su regularidad (unión contable de conjuntos contables es contable). Así que, en realidad, cualquier cardinal regular $\kappa$ tiene la propiedad de que $\operatorname*{H}(\kappa) \vDash \operatorname*{\textsc{Zfc - Rmp}^*}$.
+
+    También, nótese que de no tener \textsc{AC} en $V$, se sigue pudiendo demostrar que $\operatorname*{HC}$ es modelo de todo $\operatorname*{\textsc{Zf}-Rmp}^*$. Por lo que el siguiente corolario vale también, escribiendo \textsc{Zf} en vez de \textsc{Zfc}.
+
+    \begin{corolario}[6]
+        Se cumple lo siguiente, bajo \textsc{Zfc}:
+        \begin{enumerate}
+            \item $\operatorname*{HC} \vDash \operatorname*{\textsc{Zfc-Pot}}$ y $\operatorname*{HC} \vDash \lnot \operatorname*{\textsc{Pot}}$.
+            \item $\operatorname*{\textsc{Zfc-Pot}} \not\vdash \operatorname*{\textsc{Pot}}$, es decir, potencia ``sí era un axioma''.
+            \item $\operatorname*{\textsc{Zfc-Pot}} \lhd \operatorname*{\textsc{Zfc}}$, es decir, potencia es un axioma que ``requiere más credibilidad''.
+        \end{enumerate}
+    \end{corolario}
+    \begin{proof}
+        Lo único que hay que probar es (i), lo haremos por ``golazo''. Si $\operatorname*{HC} \not\vDash \lnot \operatorname*{\textsc{Pot}}$, entonces $\operatorname*{HC} \vDash \operatorname*{\textsc{Pot}}$ (pues potencia es enunciado). Entonces $\operatorname*{HC} \vDash \operatorname*{\textsc{Zfc}}$; y como $\operatorname*{HC}$ se contruye dentro de $\operatorname*{\textsc{Zfc}}$, esto indica que en todo modelo de $\operatorname*{\textsc{Zfc}}$, existe un modelo (conjunto) de $\operatorname*{\textsc{Zfc}}$. Por lo tanto $\operatorname*{\textsc{Zfc}} \vdash \operatorname*{Con}(\operatorname*{\textsc{Zfc}})$, lo cual contradice el segundo teorema de incompletud de Gödel.
+    \end{proof}
+
+\end{document}                                                                                                     
