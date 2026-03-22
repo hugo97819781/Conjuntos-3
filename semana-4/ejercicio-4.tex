@@ -57,9 +57,29 @@
     \begin{ejercicio}{5}
         Sean $(B, \leq)$ y $(B', \preccurlyeq)$ álgebras de Boole completas y supóngase que $X \subseteq B$ y $X' \subseteq B'$ son densos, en $B$ y $B'$, respectivamente. Pruebe que si $(X,\leq) \cong (X',\preccurlyeq)$, entonces $B$ y $B'$ son isomorfas.
     \end{ejercicio}
+    \begin{proof}
+        La inclusión $e:X \to B$ es un morfismo de orden que satisface lo siguiente:
+        \begin{enumerate}
+            \item $e[X]=X$ es un subconjunto denso en $B$.
+            \item Si $x,y \in X$ son cualesquiera, entonces $x \perp_X y$ si y sólo si $x \perp_{B^+} y$. Efectivamente, como $X \subseteq B^+$, únicamente resta verificar suficiencia. Por contrapuesta, supógnase que $x \parallel_{B^+} y$, entonces existe $u \in B ^+ = B \setminus \{0\}$ tal que $u \leq x,y$. Como $X$ es denso en $B^+$, debe existir cierto $d \in D$ con $d \leq u$. El elemento $d \in D $ es testigo de que $x \parallel_X y$.
+        \end{enumerate}
+
+        Por lo tanto, $B$ es (isomorfa a) la completación booleana de $X$, análogamente, $B'$ es la completación booleana de $X'$. Sea $h:X' \to X$ isomorfismo, entonces $eh:X' \to X$ satisface los puntos (i) y (ii) anteriores, por ser $h$ isomorfismo. Esto implica que $B$ es (isomorfa a) la completación booleana de $X'$, esto es, $B' \cong B$.
+    \end{proof}
 
     \begin{ejercicio}{5}
         Sea $\mathfrak{A}=(\omega,E)$ el modelo de Ackerman. Pruebe que $\mathfrak{A}$ modela el axioma del potencia y el axioma de buena fundación. ¿Qué axiomas de $\operatorname*{ZFC}$ se utilizan en esta prueba?
     \end{ejercicio}
+    \begin{proof} Para este ejercicio, dado $n \in \omega$, $A_n$ será el único subconjunto finito de $\omega$ tal que $\omega = \sum_{k \in A_n} 2^k$. Nótese que, dado $m \in \omega$, ocurre $A_m \subseteq m$; de lo contrario existiría $k \in A_m \setminus m$; de donde $m \geq 2^k \geq 2^m$, lo cual es absurdo.
+        
+        \textbf{(Axioma de Potencia)} Sea $n \in \omega$ cualquier conjunto. Para cada $m \in \omega$, ``$(m \subseteq n)^\mathfrak{A}$'' se da si y sólo si ``$\forall w \in \omega \, (w E m \to w E n)$'' se satisface, esto es, si ``$\forall w \in \omega \, (w \in A_m \to w \in A_n)$'' se satisface. Como $A_m, A_n \subseteq \omega$, entonces ``$(m \subseteq n)^\mathfrak{A}$'' ocurre únicamente cuando $A_m \subseteq A_n$.
 
+        Sea $A=\{ m \in \omega \tq A_m \subseteq A_n \}$, nótese que $A$ es finito, pues para cada $m \in A$ se tiene que $A_m \subseteq A_n \subseteq n$, probando que $A \subseteq n$ y $A$ es finito. Así $p= \sum_{k \in A} 2^k$ es tal que, para cada $m \in \omega$, $m E p$ si y sólo si $m \in A$, equivalentemente, si y sólo si $A_m \subseteq A_n$, esto es, $(m \subseteq n)^\mathfrak{A}$. Por lo que el axioma del potencia, ``$\forall n \, \exists p \, \forall m \, (m \in p \leftrightarrow (m \subseteq n))$'', se cumple en $\mathfrak{A}$.
+
+        \textbf{(Axioma de Buena Fundación)} Sea $n \in \omega$ cualquiera. Nótese que dado $m \in \omega$, ``$(m \cap n = \emptyset)^\mathfrak{A}$'' ocurre si y solo si para cada $k \in \omega$, $k E m$ y $k E n$ no se dan simultáneamente. Como $A_m,A_n \subseteq \omega$, lo anterior es equivalente a que $A_m \cap A_n = \emptyset$.
+        
+        Sea $m=\min(A_n)$, entonces $m E n$ y no puede existir $k \in A_m \cap A_n$; de lo contrario, como $A_m \subseteq m$, se tenría que $k < m$ y $k \in A_n$, contradiciendo la minimalidad de $m$, así que $A_m \cap A_n = \emptyset$. Por lo tanto el axioma de buena fundación, ``$\forall n \, \exists m \, (m \in n \, \land \, (m \cap n = \emptyset))$'', se cumple en $\mathfrak{A}$.
+
+        \textit{Se utilizaron los axiomas: extensionalidad, vacío, par, unión, potencia, separación* e infinito.}
+    \end{proof}
 \end{document}
