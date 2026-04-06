@@ -1,0 +1,75 @@
+%%% FORMATO E IDIOMA %%%
+    \documentclass[letterpaper,DIV=15,12pt]{scrartcl}
+    \usepackage[spanish,mexico,shorthands=off,es-lcroman]{babel}
+    \usepackage{scrlayer-scrpage}
+        \clearpairofpagestyles
+        \ihead{\footnotesize \textit{Teoría de Conjuntos III}}
+        \ohead{\footnotesize \textit{2026-2}}
+        \cfoot{\normalfont\thepage}
+        \addtokomafont{title}{\bfseries \rmfamily}
+        \setlength{\headsep}{5pt}
+        \newpairofpagestyles{beginstyle}{
+            \clearpairofpagestyles
+            \KOMAoptions{headsepline=false}
+            \cfoot{\footnotesize \pagemark}
+            \cfoot{\normalfont\thepage}
+        }
+        \addtokomafont{section}{\raggedleft\rmfamily}
+        \addtokomafont{subsection}{\raggedleft\rmfamily}
+        \addtokomafont{subsubsection}{\raggedleft\rmfamily}
+        \setlength{\headsep}{8pt}
+        \setlength{\footskip}{20pt}
+        \setlength{\textheight}{600pt}
+%%% PAQUETES %%%
+    \usepackage{ifthen}
+    \usepackage[shortlabels]{enumitem}
+        \setenumerate[1]{label=\MakeLowercase{\roman*}), ref=\roman*}
+        \setenumerate[2]{label=\MakeLowercase{\alph*}), ref=\alph*}
+    \usepackage{amsmath}
+    \usepackage{amsthm}
+    \usepackage{stmaryrd}
+    \usepackage{csquotes}
+    \usepackage[T1]{fontenc}
+    \usepackage{stix2}
+	\renewcommand{\qedsymbol}{$\blacksquare$}
+	\addto\captionsspanish{\renewcommand{\proofname}{\normalfont\bfseries Demostración}}	
+	\newenvironment{solucion}{\renewcommand{\qedsymbol}{$\boxtimes$}\begin{proof}[\normalfont\bfseries Solución]}{\end{proof}}
+%%% E J E R C I C I O S %%%
+    \newcounter{Ejer}
+    \newcounter{Pts}
+    \setcounter{Ejer}{1}
+    \setcounter{Pts}{1}
+    \newcommand{\pts}{}
+    \newenvironment{ejercicio}[1]{\noindent
+        \ifthenelse{\equal{#1}{1}}{\renewcommand{\pts}{\textbf{(#1 pt)}}}{\renewcommand{\pts}{\textbf{(#1 pts)}}}\textbf{Ej. \theEjer} \pts\stepcounter{Ejer}}{}
+%%% C O M A N D O S %%%
+    \renewcommand{\emptyset}{\varnothing}
+    \newcommand{\tq}{:}
+    \newcommand{\Bv}[1]{\llbracket #1 \rrbracket}
+%% D O C U M E N T O %%
+\begin{document}
+\thispagestyle{plain}
+
+       \begin{center}
+           {\fontsize{30}{60}\rmfamily \textbf{Ejercicio 5}} \\ \vspace{.2cm} Teoría de Conjuntos III, 2026-2
+       \end{center}
+        \begin{flushright}
+            \footnotesize \hfill Profesor: Luis Jesús Turcio Cuevas.\\
+            \hfill Ayudante: Hugo Víctor García Martínez.
+        \end{flushright}
+
+\noindent En los siguientes ejercicios, $V$ será un modelo para $\operatorname*{\textsc{Zfc}}$ y $B \in V$ un álgebra de Boole completa. \\
+
+    \begin{ejercicio}{5}
+        Sea $\varphi=\varphi(x)$ una fórmula de la teoría de conjuntos. Demuestre que
+        \[ \Bv{ \exists x \, ( \, x \text{ es ordinal} \land \varphi(x) \, ) } = \sum_{\alpha \in \operatorname*{OR}} \Bv{ \varphi( \check{\alpha}) }  \, ; \]
+
+        y, concluya el resultado dual para el cuantificador universal.
+    \end{ejercicio} \\
+
+    \begin{ejercicio}{5}
+        Demuestre que para cada $a \in V$, si $V \vDash |a|=\aleph_0 $, entonces $V^B \vDash |\check{a}| = \aleph_0$. \vspace{.15cm}
+
+        \textit{Hint. La fórmula $\varphi(f,x,y) \leftrightharpoons$ \enquote{$f$ es biyección entre $x$ y $y$} es $\Delta_0$.}
+    \end{ejercicio}
+\end{document}
