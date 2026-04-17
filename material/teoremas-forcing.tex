@@ -70,21 +70,21 @@
     \begin{definicion}
         Los \textbf{$B$-nombres} serán los elementos del universo booleano $M^B$.
 
-        El \textbf{lenguaje del forcing} es el lenguaje de primer orden con igualdad y tipo $\{ \in \} \cup M^{B}$, es decir, pensamos cade elemento de $M^B$ como una constante nueva de lenguaje.
+        El \textbf{lenguaje del forcing} es el lenguaje de primer orden con igualdad y tipo $\{ \in \} \cup M^{B}$, es decir, pensamos cada elemento de $M^B$ como una constante nueva de lenguaje.
     \end{definicion}
 
     Hay un tipo especial de nombres, los \textbf{nombres canónicos}, definidos para cada $x \in M$ de forma recursiva como a continuación se indica:
     \begin{equation}
-        \check{x} = \{ (\check{y},1) \tq y \in x \}
+        \check{x} = \{ (\check{y},1) \tq y \in x \} \, .
     \end{equation}
 
-    Hay que tener un poco de cuidado, cada nombre canónico es claramente un nombre, pero el recíproco de esto es falso. Al momento de hacer el universo booleano $M^B$, pueden (y van a) aparecer nuevos nombres. La idea es que $M$ tiene una ``copia isomorfa'' dentro de $M$. Se tiene el siguiente resultado:
+    Hay que tener un poco de cuidado, cada nombre canónico es claramente un nombre, pero el recíproco de esto es falso. Al momento de hacer el universo booleano $M^B$, pueden (y van a) aparecer nuevos nombres. La idea es que $M$ tiene una ``copia isomorfa'' dentro de $M^B$. Se tiene el siguiente resultado:
     \begin{proposicion}
         Sea $\varphi=\varphi(v_1, \dots, v_n)$ una fórmula del lenguaje de la teoría de conjuntos y supongamos que es $\Delta_0$. Entonces para cualesquiera conjuntos $a_1, \dots, a_n \in M$:
         \[ M \vDash \varphi(a_1, \dots, a_n) \sii \Bv{\varphi(\check{a_1}, \dots, \check{a_n})} = 1 \]
     \end{proposicion}
 
-    Lo anterior tiene por consecuencia algo interesante ¿cuáles valores booleanos podría tomar una fórmula $\Delta_0$, $\varphi$donde sus variables toman nombres canónicos?. Utilizando lo anterior, no es dificil deducir que sus valores booleanos sólo pueden ser $0$ o $1$, consecuentemente, para cualesquiera conjuntos $x,y \in M$,
+    Lo anterior tiene por consecuencia algo interesante ¿cuáles valores booleanos podría tomar una fórmula $\Delta_0$, $\varphi$, donde sus variables toman nombres canónicos?. Utilizando lo anterior, no es dificil deducir que sus valores booleanos sólo pueden ser $0$ o $1$, consecuentemente, para cualesquiera conjuntos $x,y \in M$,
     \[ x \in y \sii \Bv{\check{x} \in \check{y}} = 1 \, \text{ y} \]
     \[ x = y \sii \Bv{\check{x} = \check{y}} = 1 \, . \]
     En clase se probó algo más fuerte, pero de momento, nos servimos de esto para visualizar por qué hay una inclusión muy natural $M \hookrightarrow M^B$ (dada por $x \mapsto \check{x}$).
