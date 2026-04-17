@@ -1,0 +1,250 @@
+%%% FORMATO E IDIOMA %%%
+    \documentclass[letterpaper,DIV=15,12pt]{scrartcl}
+    \usepackage[spanish,mexico,shorthands=off,es-lcroman]{babel}
+    \usepackage{scrlayer-scrpage}
+        \clearpairofpagestyles
+        \ihead{\footnotesize \textit{Teoría de Conjuntos III}}
+        \ohead{\footnotesize \textit{2026-2}}
+        \cfoot{\normalfont\thepage}
+        \addtokomafont{title}{\bfseries \rmfamily}
+        \setlength{\headsep}{5pt}
+        \newpairofpagestyles{beginstyle}{
+            \clearpairofpagestyles
+            \KOMAoptions{headsepline=false}
+            \cfoot{\footnotesize \pagemark}
+            \cfoot{\normalfont\thepage}
+        }
+        \addtokomafont{section}{\raggedleft\rmfamily}
+        \addtokomafont{subsection}{\raggedleft\rmfamily}
+        \addtokomafont{subsubsection}{\raggedleft\rmfamily}
+        \setlength{\headsep}{8pt}
+        \setlength{\footskip}{20pt}
+        \setlength{\textheight}{600pt}
+%%% PAQUETES %%%
+    \usepackage{ifthen}
+    \usepackage[shortlabels]{enumitem}
+        \setenumerate[1]{label=\MakeLowercase{\roman*}), ref=\roman*}
+        \setenumerate[2]{label=\MakeLowercase{\alph*}), ref=\alph*}
+    \usepackage{amsmath}
+    \usepackage{amsthm}\usepackage[T1]{fontenc}
+    \usepackage{stix2}
+    \usepackage{stmaryrd}
+	\renewcommand{\qedsymbol}{$\blacksquare$}
+	\addto\captionsspanish{\renewcommand{\proofname}{\normalfont\bfseries Demostración}}	
+	\newenvironment{solucion}{\renewcommand{\qedsymbol}{$\boxtimes$}\begin{proof}[\normalfont\bfseries Solución]}{\end{proof}}
+
+    \usepackage{amsthm}
+		%\newtheoremstyle{manual}{3pt}{3pt}{\normalfont}{}{\bfseries}{.}{.5em}{#1#3}
+		%\theoremstyle{manual}
+		\newtheorem{proposicion}{Proposición}
+        \newtheorem{definicion}{Definición}
+        \newtheorem{teorema}{Teorema}
+        \newtheorem{lema}{Lema}
+        \newtheorem{corolario}{Corolario}
+        \newtheorem*{ejercicio*}{Ejercicio}        
+%%% C O M A N D O S %%%
+    \renewcommand{\emptyset}{\varnothing}
+    \newcommand{\tq}{:}
+    \newcommand{\yy}{\quad \text{ y } \quad}
+    \newcommand{\sii}{\quad \text{ si y sólo si } \quad}
+    \newcommand{\Bv}[1]{\llbracket #1 \rrbracket}
+    \newcommand{\zfc}{\operatorname*{\textsc{Zfc}}}
+%% D O C U M E N T O %%
+\begin{document}
+\thispagestyle{plain}
+
+    \begin{center}
+        {\fontsize{30}{60}\rmfamily \textbf{Teoremas de Frocing}} \\ \vspace{.2cm} Teoría de Conjuntos III, 2026-2
+    \end{center}
+    \begin{flushright}
+        \footnotesize \hfill Profesor: Luis Jesús Turcio Cuevas.\\
+        \hfill Ayudante: Hugo Víctor García Martínez.
+    \end{flushright}
+    
+    Durante todo el documento, $M$ será un modelo estándar, transitivo (no necesariamente un ``modelo'' ETN) para $\zfc$. Este puede ser pensado como $V$, de hecho, nos olvidaremos de la nomenclatura ``$M$'' en cuanto apliquemos el método.
+
+    \section*{$B$-nombres}
+
+    Para cualquier álgebra de Boole $B$ se puede construir el universo booleano $M^B$. El lenguaje de forcing es un lenguaje que contiene al de la teoría de conjuntos, donde cada elemento de $M^B$ se agrega como constante (formal) nueva. Este es el motivo por el cual los elementos de $M^B$ se suelen denotar como $\dot{a}$ (esto es pensando en que, posteriormente, $a$ será la interpretación de la constante $\dot{a}$ en la extensión genérica).
+
+    \begin{definicion}
+        Los \textbf{$B$-nombres} serán los elementos del universo booleano $M^B$.
+
+        El \textbf{lenguaje del forcing} es el lenguaje de primer orden con igualdad y tipo $\{ \in \} \cup M^{B}$, es decir, pensamos cade elemento de $M^B$ como una constante nueva de lenguaje.
+    \end{definicion}
+
+    Hay un tipo especial de nombres, los \textbf{nombres canónicos}, definidos para cada $x \in M$ de forma recursiva como a continuación se indica:
+    \begin{equation}
+        \check{x} = \{ (\check{y},1) \tq y \in x \}
+    \end{equation}
+
+    Hay que tener un poco de cuidado, cada nombre canónico es claramente un nombre, pero el recíproco de esto es falso. Al momento de hacer el universo booleano $M^B$, pueden (y van a) aparecer nuevos nombres. La idea es que $M$ tiene una ``copia isomorfa'' dentro de $M$. Se tiene el siguiente resultado:
+    \begin{proposicion}
+        Sea $\varphi=\varphi(v_1, \dots, v_n)$ una fórmula del lenguaje de la teoría de conjuntos y supongamos que es $\Delta_0$. Entonces para cualesquiera conjuntos $a_1, \dots, a_n \in M$:
+        \[ M \vDash \varphi(a_1, \dots, a_n) \sii \Bv{\varphi(\check{a_1}, \dots, \check{a_n})} = 1 \]
+    \end{proposicion}
+
+    Lo anterior tiene por consecuencia algo interesante ¿cuáles valores booleanos podría tomar una fórmula $\Delta_0$, $\varphi$donde sus variables toman nombres canónicos?. Utilizando lo anterior, no es dificil deducir que sus valores booleanos sólo pueden ser $0$ o $1$, consecuentemente, para cualesquiera conjuntos $x,y \in M$,
+    \[ x \in y \sii \Bv{\check{x} \in \check{y}} = 1 \, \text{ y} \]
+    \[ x = y \sii \Bv{\check{x} = \check{y}} = 1 \, . \]
+    En clase se probó algo más fuerte, pero de momento, nos servimos de esto para visualizar por qué hay una inclusión muy natural $M \hookrightarrow M^B$ (dada por $x \mapsto \check{x}$).
+    
+    \iffalse
+    \newpage
+    Con los nombres, pensados como constantes de lenguaje, consideramos su interpretación según el filtro $H$. Esta viene dada de manera recursiva, para cada $\dot{a} \in M^{\mathbb{P}}$, por:
+    \begin{equation}
+        \dot{a}^H = \{ \dot{t}^H \tq \exists p \in H \, (p \Vdash \dot{t} \in \dot{a}) \}
+    \end{equation}
+
+    \begin{definicion}
+        La extensión genérica de $M$ bajo el filtro $H$ es el conjunto de todas las $H$-interpretaciones,
+        \begin{equation}
+            M[H] = \{ \dot{a}^H \tq \dot{a} \in M^{\mathbb{P}} \}  \, .
+        \end{equation}
+    \end{definicion}
+    \fi
+
+    \section*{Extensión genérica desde un álgebra de Boole}
+
+    Cuando $U \subseteq B$ es cualquier ultrafiltro, podemos considerar los $B$-nombres, tratados como constantes de lenguaje e interpretarlos respecto a $U$ de la siguiente forma:
+    \begin{equation}
+        \dot{a}^U  = \{\dot{t}^U \tq \dot{a}(\dot{t}) \in U\}
+    \end{equation}
+    Definiendo la {\bfseries extensión genérica} como:
+    \begin{equation}
+        M[U]  = \{\dot{a}^U \tq \dot{a} \in M^B\}
+    \end{equation}
+
+    Con la extensión genérica creada de esta forma, se tienen los siguientes resultados.
+    \begin{teorema}
+        La extensión $M[U]$ es transitiva y para cada fórmula $\psi=\psi(v_1, \dots, v_n)$ ocurre:
+        \[ M[U] \vDash \psi(\dot{a}^U_1 , \dots, \dot{a}^U _n) \sii \Bv{\psi(\dot{a_1}, \dots, \dot{a_n})} \in U \, . \]
+    \end{teorema}
+    
+    Como en clase se demostró que cada nombre canónico $\check{x}$ se $U$-interpreta como $x$; y, que el valor booleano de cada axioma de $\operatorname*{\textsc{Zfc}}$ es $1$, se tiene lo posterior.
+    \begin{enumerate}
+        \item $M[U]$ es un modelo transitivo, estándar, para $\operatorname*{\textsc{Zfc}}$.
+        \item $M \subseteq M[U]$.
+    \end{enumerate}
+
+
+    \section*{$\mathbb{P}$-nombres y relación de forcing}
+
+    A partir de ahora, $\mathbb{P}=(P,\leq,1) \in M$ será un orden parcial en el modelo base, fijaremos también su completación booleana $e:P \to B^+$. 
+
+    La idea es construir la extensión genérica y la relación de forcing, partiendo únicamente desde el orden parcial. Para ello convendremos que:
+    \begin{enumerate}
+        \item Un $\mathbb{P}$-nombre es un $B$-nombre.
+        \item $M^{\mathbb{P}}=M^B$.
+    \end{enumerate}
+
+    El objetivo ahora es construir la relación de forcing, su utilidad primordial será la de poder hablar sobre lo que ocurre en la extensión genérica, pero desde dentro del modelo base.
+
+    \begin{definicion}
+        Dadas una fórmula en la teoría de conjuntos $\psi=\psi(v_1, \dots, v_n)$ y una condición $p \in P$; se define para cualesquiera nombres $\dot{a_1}, \dots, \dot{a_n} \in M^B$:
+        \[ p \Vdash \varphi(\dot{a_1}, \dots, \dot{a_n} ) \sii e(p) \leq \Bv{\varphi(\dot{a_1}, \dots, \dot{a_n})} \, . \]
+    \end{definicion}
+
+    Nótese que bajo esta definición, tanto la completación booleana $(e,B)$ como la relación de forcing $\Vdash$ son definibles en el modelo base. Esto implica el \textbf{lema de definibilidad}; esto es, cada vez que $\psi=\psi(v_1, \dots, v_n)$ sea una fórmula de la teoría de conjuntos y $\dot{a_1}, \dots, \dot{a_n}$ sean $\mathbb{P}$-nombres, las colecciones del estilo:
+    \[ \{ p \in P \tq p \Vdash \psi (\dot{a_1}, \dots, \dot{a_n}) \} \]
+    serán conjuntos en el modelo base. Siempre que estas colecciones no involucren fórmulas con parámetros que sean un filtro genérico (o cualquier cosa que realmente \textit{se salga} del modelo base), serán conjuntos desde el punto de vista de $M$.
+
+    \begin{teorema}
+        La relación $\Vdash$ se comporta de la siguiente forma:
+        \begin{enumerate}[a)]
+            \item Monotonía.
+                \begin{enumerate}[i)]
+            \item Si $q \leq p$ y $p \Vdash \psi$, entonces $q \Vdash \psi$.
+            \item Si $p \vDash \psi$ y $\Bv{\psi \to \alpha}=1$, entonces $p \Vdash \alpha$.
+                \end{enumerate}
+            \item Negación.
+                \begin{enumerate}[i)]
+            \item No existe $p \in P$ con $p \Vdash \psi$ y $p \Vdash \lnot \psi$ (simultáneamente).
+            \item $p \Vdash \lnot \psi$ si y solamente si para cada $q \leq p$ se tiene $q \not\Vdash \psi$.
+            \item $p \Vdash \psi$ si y sólo si $p \Vdash \lnot \lnot \psi$.
+                \end{enumerate}
+            \item Conjunciones.
+                \begin{enumerate}[i)]
+            \item $p \Vdash \psi \land \alpha$ si y sólo si $p \Vdash \psi$ y $p \Vdash \alpha$.
+            \item $p \Vdash \forall x \, \psi(x)$ si y solamente si para cada $\dot{a} \in M^{\mathbb{P}}$ ocurre $p \Vdash \psi(\dot{a})$.
+                \end{enumerate}
+            \item Disyunciones.
+                \begin{enumerate}[i)]
+                    \item $p \Vdash \psi \lor \alpha$ si y sólo si $D=\{r \in P \tq r \Vdash \psi \text{ o } r \Vdash \alpha \}$ es denso bajo $p$.
+                    \item $p \Vdash \exists x \, \psi (x)$ si y sólo si $D=\{r \in P \tq \exists \dot{a} \in M^{\mathbb{P}} \, ( r \Vdash \psi(\dot{a}) )\}$ es denso bajo $p$.
+                \end{enumerate}
+            \item Completez.
+                \begin{enumerate}[i)]
+                    \item Si $p \Vdash \exists x \, \psi(x)$, entonces existe $\dot{a} \in M^{\mathbb{P}}$ tal que $p \Vdash \psi(\dot{a})$.
+                \end{enumerate}
+      \end{enumerate}
+    \end{teorema}
+    \begin{proof}
+        \textbf{(a)} Son inmediatas dada la definición de $\Vdash$.
+
+        \textbf{(b)} Los incisos (i) y (iii) son inmediatos. Para (ii) supóngase primero que $p \Vdash \lnot \psi$. Si $q \leq p$, entones por (a.i) se sigue que $q \Vdash \lnot \psi$, obteniéndose de (b.i) que $q \not\Vdash \psi$.
+
+        Ahora súpóngase que $p \not\Vdash \psi$, entonces $e(p) \not\leq \Bv{\psi}$ y consecuentemente $e(p) \Rightarrow \Bv{\psi} \neq 1$, de donde $e(p) \cdot \Bv{\psi}^* = e(p) \cdot \Bv{\psi} \neq 0$. Como $e$ tiene imagen densa, existe $s \in P$ de modo que $e(s) \leq e(p)$ y $e(s) \leq \Bv{\psi}$. Por lo anterior $e(s) = e(s) \cdot e(p) \neq 0$; como $e$ refleja compatibilidades, $s \parallel p$ en $\mathbb{P}$ y existe $q \in P$ con $q \leq p,s$. Así, $q \leq p$ y $e(q)\leq e(s) \leq \Bv{\psi}$, con lo cual, $q \Vdash \psi$.
+
+        \textbf{(c)} Se realizará sólo el segundo inciso, el primero es muy similar, utiliza el hecho de que un elemento en $B$ es cota inferior de un conjunto si y sólo si es menor o igual que su ínfimo.
+
+        Para (ii), basta notar que:
+        \begin{align*}
+            p \Vdash \forall x \, \psi(x) \sii & e(p) \leq \Bv{\forall x \, \psi(x)} \\
+            \sii & e(p) \leq \prod_{\dot{a} \in M^{\mathbb{P}}} \Bv{\psi(\dot{a})} \\
+            \sii & \text{Para cada } \dot{a}\in M^{\mathbb{P}}, \; e(p) \leq \Bv{\psi(\dot{a})} \\
+            \sii & \text{Para cada } \dot{a}\in M^{\mathbb{P}}, \; p \Vdash \psi(\dot{a}) \, ,
+        \end{align*}
+        lo cual finaliza la prueba.
+
+        \textbf{(d)} Utilizando (a.i), (b.ii) y (b.iii):
+        \begin{align*}
+            p \not\Vdash \alpha \lor \beta \sii & p \not\Vdash \lnot (\lnot \alpha \land \lnot \beta) \\
+            \sii & \text{Existe } q \leq p \text{ tal que } q \Vdash \lnot \alpha \land \lnot \beta \\
+            \sii & \text{Existe } q \leq p \text{ tal que } q \Vdash \lnot \alpha \text{ y } q \Vdash \lnot \beta \\
+            \sii & \text{Existe } q \leq p \text{ tal que para cada } r \leq q \text{ ocurre } r \not\Vdash \alpha \text{ y } r \not\Vdash \beta \, ,
+        \end{align*}
+        probando que:
+        \begin{align*}
+            p \Vdash \alpha \lor \beta \sii & \text{Para cada } p \leq q \text{ existe } r \leq p \text{ tal que } r \Vdash \alpha \text{ o } r \Vdash \beta \\
+            \sii & \text{Para cada } p \leq q \text{ existe } r \leq p \text{ tal que } r \in D \\
+            \sii & D \text{ es denso bajo } p \, .
+        \end{align*}
+
+        El inciso (ii) se realiza de manera similar, utilizando que $\Bv{\lnot \exists x \, \psi(x) \Leftrightarrow \forall x \, \lnot \psi(x)}=1$.
+
+        \textbf{(e)} Supóngase que $p \Vdash \exists x \, \psi(x)$. Recordando que $M^\mathbb{P}=M^B$, como modelo booleano-valuado, es completo, existe un nombre $\dot{a} \in M^B$ de manera tal que $\Bv{\exists x \, \psi(x)}=\Bv{\psi(\dot{a})}$. Resulta claro que entonces $p \Vdash \psi(\dot{a})$.
+    \end{proof}
+
+    \section*{Extensión genérica desde un orden parcial}
+
+    A partir de ahora, $H \subseteq P$ será un filtro de $\mathbb{P}$, $M$-genérico y $G \subseteq B$ será el filtro generado por $H$ en $B$, es decir,
+     \[ G=\uparrow e[H] = \{ b \in B \tq \exists p \in H \, ( e(p) \leq b) \} \, . \]
+
+    Con los nombres, pensados como constantes de lenguaje, consideramos su interpretación según el filtro $H$. Esta viene dada de manera recursiva, similarmente a (2) y (3). Para cada $\dot{a} \in M^{\mathbb{P}}$ se define:
+    \begin{equation}
+        \dot{a}^H = \{ \dot{t}^H \tq \exists p \in H \, (e(p) \leq \dot{a}(\dot{t} ) \}
+    \end{equation}
+
+    Tomando ahora la extensión genérica de $M$, bajo el filtro $H$, como el conjunto de todos los $\mathbb{P}$-nombres ya interpretados,
+        \begin{equation}
+            M[H] = \{ \dot{a}^H \tq \dot{a} \in M^{\mathbb{P}} \}  \, .
+        \end{equation}
+
+    Para mostrar que en este método es lo mismo partir de un filtro genérico en un orden parcial, que en un filtro genérico de su completación booleana, bastará demostrar que $M[H]=M[G]$, para lo cual procederemos como a continuación se muestra.
+
+    \begin{proposicion}
+        Para cualquier nombre $a \in M^\mathbb{P} = M^B$, ocurre que $a^H = a^G$. Donde en la izquierda interpretamos como en (4), y a la derecha, como en (2). Consecuentemente,
+        \[ M[G] = M[H] \, . \]
+    \end{proposicion}
+    \begin{proof}
+        Por inducción supóngase que $\dot{a}$ es un $\mathbb{P}$- (o $B$-) nombre y que para cada elemento $x=\dot{t}^H \in \dot{a}^H$ ocurre $\dot{t}^H=\dot{t}^G$. Entonces, aplicando la hipótesis de inducción y la definición de $G$:
+        \begin{align*}
+            \dot{a}^G & = \{ \dot{t}^G \tq \dot{a}(\dot{t}) \in G \} \\
+            & = \{ \dot{t}^G \tq \exists p \in H \, (e(p) \leq \dot{a}(\dot{t})) \\
+            & = \dot{a}^H \, ,
+        \end{align*}
+        finalizando la prueba.
+    \end{proof}
+
+\end{document}
