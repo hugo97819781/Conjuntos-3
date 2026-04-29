@@ -57,28 +57,44 @@
 
     Un \textit{girasol} (\textit{o delta-sistema}) es un conjunto $A$, cuyos elementos son conjuntos finitos y existe un conjunto $R$ de manera que para cualesquiera $a,b \in A$ distintos, $a \cap b = R$. En este caso, $R$ es la \textit{raíz} del girasol.
 
-    \begin{lema}
+    A continuación se demostrará que cualquier conjunto $A$ de tamaño $\kappa=\operatorname*{cf}(\kappa)>\omega$, cuyos elementos sean finitos, contiene un girasol de tamaño $\kappa$. Nótese que en tal situación, es necesario que $A$ contenga un conjunto $B$ de tamaño $\kappa$ tal que cada elemento de $B$ tiene el mismo tamaño. Efectivamente, como cada $a \in A$ es finito,
+        \[ A = \bigcup_{n \in \omega} \{ a \in A \tq |a|=n \} \, ; \]
+    y, puesto que $|A|=\kappa>\omega$, debe existir $n \in \omega$ y tal que $B=\{a \in A \tq |a|=n\} \in [A]^\kappa$. Así, basta demostrar el resultado para conjuntos de tamaño $\kappa$ cuyos elementos son finitos y tienen el mismo tamaño. \vspace{.2cm}
+    
+    {\noindent \itshape \textbf{Lema del girasol.}
         Sea $\kappa > \omega$ un cardinal regular y supóngase que $A$ es un conjunto de conjuntos finitos, con $|A|=\kappa$. Entonces, existe un girasol $B \subseteq A$ de tamaño $\kappa$.
-    \end{lema}
+    }
+
     \begin{proof}
-        Se afirma que: para cada natural $m$ y conjunto $B$ de tamaño $\kappa$, si cada $b \in B$ tiene tamaño $|b|=m$, entonces $B$ contiene un girasol de tamaño $\kappa$. Procédase por inducción sobre $\omega \setminus 1$.
+        Por los comentarios previos, basta remostrar que para cada natural $m$ y para cualquier conjunto $B$ de tamaño $\kappa$; si cada $b \in B$ tiene tamaño $|b|=m$, entonces $B$ contiene un girasol de tamaño $\kappa$. Procédase por inducción sobre $\omega \setminus 1$.
         \begin{enumerate}[\hspace{.8cm}]
-            \item \textit{Base.} Si $B$ es conjunto de tamaño $\kappa$ y cada elemento de $B$ tiene tamaño $1$, entonces $B$ mismo es un girasol (con raíz $\emptyset$).
-            \item \textit{Paso inductivo.} Sea $m \in \omega \setminus 1$ y supóngase que cada subconjunto de $A$ de tamaño $\kappa$, tal que todos sus elementos tienen tamaño $m$, contiene un girasol de tamaño $\kappa$. Sea $B$ un conjunto con $|B|=\kappa$ y supóngase que cada $b \in B$ tiene tamaño $m+1$.
+            \item \textit{\underline{Base.}} Si $B$ es conjunto de tamaño $\kappa$ y cada elemento de $B$ tiene tamaño $1$, entonces $B$ mismo es un girasol (con raíz $\emptyset$).
+
+            \item \textit{\underline{Paso inductivo.}} Sea $m \in \omega \setminus 1$ y supóngase que para cada conjunto $A$ de tamaño $\kappa$, si todos sus elementos tienen tamaño $m$, entonces $A$ contiene un girasol de tamaño $\kappa$. Sea $B$ un conjunto con $|B|=\kappa$ y supóngase que cada $b \in B$ tiene tamaño $m+1$.
             
-            Para cada $x \in \bigcup A$ sea $B_x=\{ b \in B \tq x \in b \}$. Existen los siguientes dos casos:
+            Para cada conjunto $x$ defínase $B_x=\{ b \in B \tq x \in b \}$, ocurren sólo los siguientes dos casos:
             \begin{enumerate}
-                \item Existe $x \in X$ tal que $|B_x|=\kappa$. En este caso, el conjunto $C=\{b \setminus \{x\} \tq b \in B\}$ tiene tamaño $\kappa$ y todos sus elementos tienen cardinalidad $m$, por lo que de la hipótesis de inducción, existe un girasol $C' \subseteq C$ de tamaño $\kappa$. Obsérvese que, $B'=\{c \cup \{x\} \tq c \in C\}$ es un girasol de tamaño $\kappa$ contenido en $B$.
+                \item Existe $x$ tal que $|B_x|=\kappa$. En este caso, el conjunto $C=\{b \setminus \{x\} \tq b \in B\}$ tiene tamaño $\kappa$ y todos sus elementos tienen cardinalidad $m$, por lo que de la hipótesis de inducción, existe un girasol $C' \subseteq C$ de tamaño $\kappa$. Obsérvese que $B'=\{c \cup \{x\} \tq c \in C'\}$ es un girasol de tamaño $\kappa$ contenido en $B$.
                 
-                \item 
+                \item Para todo conjunto $x$, $|B_x|<\kappa$. En este caso, para cada conjunto $S$ de tamaño menor que $\kappa$ ocurre que
+                \[ \{ b \in B \tq b \cap S \neq \emptyset \} = \bigcup_{x \in S} B_x \, ; \]
+                pero tal unión tiene tamaño menor que $\kappa$ (pues $\kappa$ es regular y $|S|<\kappa$). Por lo tanto $\{ b \in B \tq b \cap S = \emptyset \} \neq B$ y existe $b \in B$ tal que $b \cap S = \emptyset$.
+
+                Con base en lo recién demostrado, constrúyase por recursión sobre $\kappa$ una sucesión de conjuntos, $E=\{b_\alpha \in B \tq \alpha \in \kappa\}$, tal que para cada $\alpha \in \kappa$ ocurra
+                \[ b_\alpha \cap \bigcup_{\beta < \alpha} b_\beta  = \emptyset \, . \]
+
+                De esta manera, si $\alpha \neq \beta$ entonces sin pérdida de generalidad $\beta < \alpha$, obteniéndose de lo anterior que $b_\alpha \cap b_\beta = \emptyset$; es decir, $E \subseteq B$ es un girasol con raíz $\emptyset$ y tamaño $\kappa$.
             \end{enumerate}
         \end{enumerate}
-        
-        
-        \newpage
-        Ahora, como cada $a \in A$ es finito,
-        \[ A = \bigcup_{n \in \omega} \{ a \in A \tq |a|=n \} \, ; \]
-        y, puesto que $|A|=\kappa>\omega$, debe existir $n \in \omega$ y tal que $D=\{a \in A \tq |a|=n\} \in [A]^\kappa$.
+        Lo anterior finaliza la inducción, y con ello, la demostración del lema.        
     \end{proof}
+
+    En clase se utilizó el lema del girasol para demostrar el siguiente resultado, súmamente últil al momento de construir nociones de forcing que no alteren la numeración de los número(te)s $\aleph$.
+
+    \begin{corolario}
+        Si $I \neq \emptyset$, entonces $\mathbb{P}=(\operatorname*{Fn}(I,J),\supseteq)$ tiene la \textit{c.c.c.} si y sólo si $|J| \leq \omega$.
+    \end{corolario}
+
+    ¿Será que, si $I$ es no vacío, entonces $(\operatorname*{Fn}(I,J),\supseteq)$ tiene la $\theta$-\textit{c.c.} siempre que $|J|<\theta$?
 
 \end{document}
