@@ -1,0 +1,82 @@
+%%% FORMATO E IDIOMA %%%
+    \documentclass[letterpaper,DIV=15,12pt]{scrartcl}
+    \usepackage[spanish,mexico,shorthands=off,es-lcroman]{babel}
+    \usepackage{scrlayer-scrpage}
+        \clearpairofpagestyles
+        \ihead{\footnotesize \textit{Teoría de Conjuntos III}}
+        \ohead{\footnotesize \textit{2026-2}}
+        \cfoot{\normalfont\thepage}
+        \addtokomafont{title}{\bfseries \rmfamily}
+        \setlength{\headsep}{5pt}
+        \newpairofpagestyles{beginstyle}{
+            \clearpairofpagestyles
+            \KOMAoptions{headsepline=false}
+            \cfoot{\footnotesize \pagemark}
+            \cfoot{\normalfont\thepage}
+        }
+        \addtokomafont{section}{\raggedleft\rmfamily}
+        \addtokomafont{subsection}{\raggedleft\rmfamily}
+        \addtokomafont{subsubsection}{\raggedleft\rmfamily}
+        \setlength{\headsep}{8pt}
+        \setlength{\footskip}{20pt}
+        \setlength{\textheight}{600pt}
+%%% PAQUETES %%%
+    \usepackage{ifthen}
+    \usepackage[shortlabels]{enumitem}
+        \setenumerate[1]{label=\MakeLowercase{\roman*}), ref=\roman*}
+        \setenumerate[2]{label=\MakeLowercase{\alph*}), ref=\alph*}
+    \usepackage{amsmath}
+    \usepackage{amsthm}
+    \usepackage{stmaryrd}
+    \usepackage{csquotes}
+    \usepackage[T1]{fontenc}
+    \usepackage{stix2}
+	\renewcommand{\qedsymbol}{$\blacksquare$}
+	\addto\captionsspanish{\renewcommand{\proofname}{\normalfont\bfseries Demostración}}	
+	\newenvironment{solucion}{\renewcommand{\qedsymbol}{$\boxtimes$}\begin{proof}[\normalfont\bfseries Solución]}{\end{proof}}
+%%% E J E R C I C I O S %%%
+    \newcounter{Ejer}
+    \newcounter{Pts}
+    \setcounter{Ejer}{1}
+    \setcounter{Pts}{1}
+    \newcommand{\pts}{}
+    \newenvironment{ejercicio}[1]{\noindent
+        \ifthenelse{\equal{#1}{1}}{\renewcommand{\pts}{\textbf{(#1 pt)}}}{\renewcommand{\pts}{\textbf{(#1 pts)}}}\textbf{Ej. \theEjer} \pts\stepcounter{Ejer}}{}
+%%% C O M A N D O S %%%
+    \renewcommand{\emptyset}{\varnothing}
+    \newcommand{\tq}{:}
+    \newcommand{\Bv}[1]{\llbracket #1 \rrbracket}
+    \newcommand{\Thr}[1]{\operatorname*{\textsc{#1}}}
+%% D O C U M E N T O %%
+\begin{document}
+\thispagestyle{plain}
+
+       \begin{center}
+           {\fontsize{30}{60}\rmfamily \textbf{Ejercicio 6}} \\ \vspace{.2cm} Teoría de Conjuntos III, 2026-2
+       \end{center}
+        \begin{flushright}
+            \footnotesize \hfill Profesor: Luis Jesús Turcio Cuevas.\\
+            \hfill Ayudante: Hugo Víctor García Martínez.
+        \end{flushright}
+
+    \begin{ejercicio}{2}
+        Sea $\mathbb{P}=(\operatorname*{Add}(\aleph_{8},\aleph_1), \supseteq, \emptyset)$. Utilizando los resultados de la clase, demuestre lo siguiente:
+        \begin{enumerate}
+            \item $\mathbb{P}$ preserva cardinales mayores a $\mathfrak{c}$ y menores iguales que $\aleph_1$.
+            \item $\mathbb{P}$ preserva el potencia de $\omega$.
+        \end{enumerate}
+    \end{ejercicio}
+
+    \begin{ejercicio}{6}
+        Suponga que $V$ es un modelo de $\Thr{Zfc}$ donde se cumple $\Thr{Ch}$ y sea $\mathbb{P}$ la noción de forcing del ejemplo anterior. Demuestre que para todo filtro $V$-genérico, $G$:
+        \begin{enumerate}
+            \item Si $\kappa>\omega$ es es cardinal en $V$, entonces $\kappa$ es cardinal en $V[G]$.
+            \item Se cumple que $\aleph_1^{V[G]}=\mathfrak{c}^{V[G]}$.
+            \item Se cumple que $\aleph_2^{V[G]} < ( 2^{\aleph_1} ) ^{V[G]}$.
+        \end{enumerate}
+    \end{ejercicio}
+
+    \begin{ejercicio}{2}
+        A partir del ejercicio anterior concluya que $\Thr{Zfc} \not\vdash \Thr{Ch} \to \Thr{Gch}$.
+    \end{ejercicio}
+\end{document}
