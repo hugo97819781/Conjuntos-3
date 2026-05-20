@@ -1,0 +1,426 @@
+%%% FORMATO E IDIOMA %%%
+    \documentclass[letterpaper,DIV=15,12pt]{scrartcl}
+    \usepackage[spanish,mexico,shorthands=off,es-noindentfirst]{babel}
+    \usepackage{scrlayer-scrpage}
+        \clearpairofpagestyles
+        \ihead{\footnotesize \textit{Teoría de Conjuntos III}}
+        \ohead{\footnotesize \textit{2026-2}}
+        \cfoot{\normalfont\thepage}
+        \addtokomafont{title}{\bfseries \rmfamily}
+        \setlength{\headsep}{5pt}
+        \newpairofpagestyles{beginstyle}{
+            \clearpairofpagestyles
+            \KOMAoptions{headsepline=false}
+            \cfoot{\footnotesize \pagemark}
+            \cfoot{\normalfont\thepage}
+        }
+        \addtokomafont{section}{\raggedleft\rmfamily}
+        \addtokomafont{subsection}{\raggedleft\rmfamily}
+        \addtokomafont{subsubsection}{\raggedleft\rmfamily}
+        \setlength{\headsep}{8pt}
+        \setlength{\footskip}{20pt}
+        \setlength{\textheight}{600pt}
+%%% PAQUETES %%%
+    \usepackage[style=mexican]{csquotes}
+    \usepackage{ifthen}
+    \usepackage[shortlabels]{enumitem}
+        \setenumerate[1]{label=\MakeLowercase{\roman*}), ref=\roman*}
+        \setenumerate[2]{label=\MakeLowercase{\alph*}), ref=\alph*}
+    \usepackage{mathtools}
+    \usepackage{amsthm}
+    \usepackage[T1]{fontenc}
+    \usepackage{stix2}
+	\renewcommand{\qedsymbol}{$\blacksquare$}
+	\addto\captionsspanish{\renewcommand{\proofname}{\normalfont\bfseries Demostración}}	
+	\newenvironment{solucion}{\renewcommand{\qedsymbol}{$\boxtimes$}\begin{proof}[\normalfont\bfseries Solución]}{\end{proof}}
+
+        \newtheoremstyle{manual}{3pt}{3pt}{\normalfont}{}{\bfseries}{.}{.5em}{#1 #3}
+		\theoremstyle{manual}
+		\newtheorem{proposicion}{Proposición}
+        \newtheorem{definicion}{Definición}
+        \newtheorem{teorema}{Teorema}
+        \newtheorem{lema}{Lema}
+        \newtheorem{corolario}{Corolario}
+        \newtheorem*{ejercicio*}{Ejercicio}        
+%%% C O M A N D O S %%%
+    \renewcommand{\emptyset}{\varnothing}
+    \NewDocumentCommand{\mb}{O{}}{\cramped{V^{(B)}_{#1}}}      %V^(B)
+    \NewDocumentCommand{\mg}{O{}}{\cramped{V^{(\Gamma)}_{#1}}} %V^(Γ)
+    \DeclarePairedDelimiter{\vb}{\lBrack}{\rBrack}             %|| - ||
+    \DeclareMathOperator{\dom}{dom}                            %dominio
+    \DeclareMathOperator{\cod}{cod}                            %codominio
+    \DeclareMathOperator{\im}{im}                              %imagen 
+%conjuntos
+\newcommand{\st}{}                                              
+\newcommand{\SetSymbol}[1][]{%
+\nonscript\:#1\vert
+\allowbreak
+\nonscript\:
+\mathopen{}}
+\DeclarePairedDelimiterX\set[1]\{\}{%
+\renewcommand\st{\SetSymbol[\delimsize]}
+#1
+}
+%% D O C U M E N T O %%
+
+\begin{document}
+
+\thispagestyle{plain}
+
+    \begin{center}
+        {\fontsize{30}{60}\rmfamily \textbf{Modelo booleano-valuado}} \\ \vspace{.2cm} Teoría de Conjuntos III, 2026-2
+    \end{center}
+    \begin{flushright}
+        \footnotesize \hfill Profesor: Luis Jesús Turcio Cuevas.\\
+        \hfill Ayudante: Hugo Víctor García Martínez.
+    \end{flushright}
+
+\section{Validez de los axiomas}
+Recordemos que tenemos un álgebra de Boole completa \(B\) y la construcción de
+una estructura booleano-valuada dada por la siguiente jerarquía acumulativa:
+\begin{align*}
+  \mb[0] &=\emptyset,\\
+  \mb[\alpha+1] &=\set{f\colon X\to B\st X\subseteq\mb[\alpha]},\\
+  \mb[\gamma] &=\bigcup_{\alpha<\gamma}\mb[\alpha],\\
+  \mb &=\smashoperator{\bigcup_{\alpha\in\text{OR}}}\mb[\alpha].
+\end{align*}
+Además, definimos el valor booleano de las fórmulas atómicas de manera
+simultánea y por recursión de la siguiente manera:
+\begin{align*}
+  \vb{x\in y} &= \smashoperator{\sum_{s\in\dom(y)}}y(s)\cdot\vb{s=x},\\
+  \vb{x\subseteq y} 
+  &= \smashoperator{\prod_{t\in\dom(x)}}x(t)\Rightarrow\vb{t\in y},\\
+  \vb{x=y} &= \vb{x\subseteq y}\cdot\vb{y\subseteq x}.
+\end{align*}
+Con esta definición de valor booleano se satisface, en particular, la
+sustitución de iguales por iguales.
+Por último recordemos que \(\mb\models\varphi\) si y sólo si \(\vb{\varphi}=1\).
+
+
+\subsection{Extensionalidad}
+Sean \(x,y\in\mb\) y veamos que
+\begin{equation}
+  \label{eq:ext}
+  \vb{\forall w(w\in x\to w\in y)\to x\subseteq y}=1.
+\end{equation}
+Con la otra implicación del axioma obtendríamos la otra contención. Como la
+demostración del enunciado anterior es análoga a lo que veremos, la omitiremos.
+
+Por la equivalencia del orden con la implicación booleana, para ver que se
+satisface la ecuación~\ref{eq:ext} es suficiente mostrar que
+\begin{equation}
+  \vb{\forall w(w\in x\to w\in y)}\leq\vb{x\subseteq y}.
+\end{equation}
+
+Consideramos la siguiente cadena de desigualdades
+\begin{align*}
+  \vb{\forall w(w\in x\to w\in y)} 
+  &= \smashoperator{\prod_{a\in\mb}}\vb{a\in x\to a\in y}
+  && \text{definición de \(\vb{\forall\dots}\)}\\
+  &\leq \smashoperator{\prod_{t\in\dom(x)}}\vb{t\in x\to t\in y}
+  && \text{propiedades de ínfs}\\
+  &= \smashoperator{\prod_{t\in\dom(x)}}\vb{t\in x}\Rightarrow \vb{t\in y}\\
+  &\leq \smashoperator{\prod_{t\in\dom(x)}}x(t)\Rightarrow\vb{t\in y}
+  && x(t)\leq\vb{t\in x}\\
+  &= \vb{x\subseteq y}.
+\end{align*}
+
+
+\subsection{Separación}
+Sean \(x\in\mb\) y \(\varphi(v)\) una fórmula. Sea \(z\in\mb\) que satisface
+\(\dom(z)=\dom(x)\) y \(z(t)=x(t)\cdot\vb{\varphi(t)}\). Veamos que se satisface
+\begin{equation*}
+  \vb{\forall w(w\in z \leftrightarrow w\in x\land\varphi(w))}=1
+\end{equation*}
+Como el valor booleano de un cuantificador universal es un ínfimo y queremos que
+este sea \(1\), entonces cada uno de los \textit{ínfimandos} debe ser \(1\).
+Así, tenemos que mostrar que para cualquier \(a\in\mb\) se satisface
+\begin{equation*}
+  \vb{a\in z \leftrightarrow a\in x\land\varphi(a)}=1.
+\end{equation*}
+Por la definición del bicondicional y la equivalencia del orden con implicación
+booleana, lo anterior se traduce a demostrar
+\begin{equation*}
+  \vb{a\in z}=\vb{a\in x\land\varphi(a)}.
+\end{equation*}
+Consideremos la siguiente cadena de igualdades
+\begin{align*}
+  \vb{a\in z} &= \smashoperator{\sum_{t\in\dom(z)}}z(t)\cdot\vb{t=a}\\
+  &= \smashoperator{\sum_{t\in\dom(x)}}x(t)\cdot\vb{\varphi(t)}\cdot\vb{t=a}
+  && \text{definición de \(z\)}\\
+  &= \smashoperator{\sum_{t\in\dom(x)}}x(t)\cdot\vb{\varphi(a)}\cdot\vb{t=a}
+  && \text{sustitución de = por =}\\
+  &= \left(\smashoperator[r]{\sum_{t\in\dom(x)}}x(t)
+  \cdot\vb{t=a}\right)\cdot\vb{\varphi(a)}\\
+  &= \vb{a\in x}\cdot\vb{\varphi(a)}.
+\end{align*}
+
+Como ya tenemos separación, ahora es posible verificar la versión débil de los
+axiomas. Por ejemplo, para el axioma del par, si \(x,y\in\mb\) entonces es
+suficiente dar la existencia de \(z\in\mb\) tal que las fórmulas \(x\in z\) y
+\(y\in z\) se satisfagan en \(\mb\), es decir, un supraconjunto del par de
+verdad. 
+
+
+\subsection{Par}
+Sean \(x,y\in\mb\). Definimos \(z\in\mb\) como sigue: \(\dom(z)=\set{a,b}\) y
+\(z(a)=1=z(b)\). Aunque no es difícil ver que con esta definición \(z\)
+satisface la versión original del axioma del par, sólo veremos que 
+\begin{equation*}
+  \vb{x\in z}=\vb{y\in z}=1.
+\end{equation*}
+Además, la demostración con \(y\) es análoga a la de \(x\) así que sólo haremos
+una.
+\begin{align*}
+  \vb{x\in z} &= (z(x)\cdot\vb{x=x})+(z(y)\cdot\vb{x=y})\\
+  &= 1 + (z(y)\cdot\vb{x=y})\\
+  &=1.
+\end{align*}
+
+
+\subsection{Unión}
+Sea \(x\in\mb\) y proponemos \(z\in\mb\) tal que
+\begin{align*}
+  \dom(z) &= \smashoperator{\bigcup_{t\in\dom(x)}}\dom(t)\\
+  z(r) &= 1.
+\end{align*}
+Veamos que \(\vb{\forall y(y\in x\to \forall w(w\in y\to w\in z))}=1\). La
+fórmula dentro del valor booleano anterior se puede abreviar usando
+cuantificadores acotados. Con la abreviatura mencionada lo que tenemos que
+mostrar es:
+\begin{equation*}
+  \vb{\forall y\in x\forall w\in y(x\in z)}=1.
+\end{equation*}
+Como la anterior es una fórmula con cuantificadores acotados, entonces la
+ecuación anterior se traduce a
+\begin{equation*}
+  \smashoperator{\prod_{t\in\dom(x)}} x(t)\Rightarrow\vb{\forall w\in t(w\in z)}=1,
+\end{equation*}
+es decir, dada \(t\in\dom(x)\) veamos que 
+\(x(t)\leq\vb{\forall w\in t(w\in z)}\). De nuevo, el valor booleano del lado
+derecho de la implicación es un cuantificador acotado que sabemos es igual a
+\(\prod_{r\in\dom(t)}t(r)\Rightarrow\vb{r\in z}\). Por las propiedades de
+ínfimo, todo lo anterior se traduce a demostrar que si \(t\in\dom(x)\) y
+\(r\in\dom(t)\), entonces
+\begin{equation*}
+  x(t)\leq (t(r)\Rightarrow\vb{r\in z}).
+\end{equation*}
+Por la adjunción entre ínfimo e implicación veremos que 
+\(x(t)\cdot t(r)\leq\vb{r\in z}\). Para esto notamos que \(r\in\dom(z)\) por lo
+que \(\vb{r\in z}\geq z(r)=1\) y así lo que queremos demostrar es inmediato.
+
+
+\subsection{Infinito}
+Como \enquote{\(x\) es inductivo} es una fórmula \(\Delta_{0}\), entonces
+\begin{equation*}
+  \vb{\check{\omega}\text{ es inductivo}}=1
+\end{equation*}
+mostrando así que hay un \enquote{conjunto} inductivo en \(\mb\).
+
+
+\subsection{Buena fundación}
+Sea \(x\in\mb\) y veamos que si \(x\ne\emptyset\) entonces tiene un
+\(\in\)-minimal, es decir,
+\begin{equation*}
+  \vb{\exists u(u\in x)\to\exists y\in x\forall z\in y(z\notin x)}=1.
+\end{equation*}
+Supongamos que no es cierto, es decir,
+\begin{equation*}
+  \vb{\exists u(u\in x)\land\forall y\in x\exists z\in y(z\in x)}=b\ne 0.
+\end{equation*}
+
+Como estamos en una jerarquía acumulativa, entonces podemos tomar \(a\in\mb\) de
+rango mínimo tal que \(\vb{a\in x}\cdot b\ne 0\). Como \(b\) es un ínfimo,
+entonces es menor o igual a sus \enquote{ínfimandos} y hacer ínfimo con \(b\)
+preserva el orden. Con lo anterior tenemos:
+\begin{equation*}
+  \vb{a\in x}\cdot b\leq
+  \vb{a\in x}\cdot\vb{\forall y\in x\exists z\in y(z\in x)}\cdot b.
+\end{equation*}
+Notemos que las fórmulas que están escritas explícitamente en el lado derecho de
+la desigualdad anterior son \(\Delta_{0}\). Además, la conjunción de las dos implica a
+la fórmula \(\exists z\in a(z\in x)\), que también es \(\Delta_{0}\). Así,
+tenemos una implicación de fórmulas \(\Delta_{0}\) válida en \(V\), por lo que
+el valor booleano de la implicación debe ser \(1\) en \(\mb\), o bien tenemos la
+siguiente desigualdad
+\begin{equation*}
+  \vb{a\in x}\cdot\vb{\forall y\in x\exists z\in y(z\in x)}\cdot b \leq
+  \vb{\exists z\in a(z\in x)}\cdot b.
+\end{equation*}
+De la condición que satisface \(a\), la distributividad general y el valor de un
+cuantificador existencial acotado tenemos
+\begin{equation*}
+  \smashoperator{\sum_{t\in\dom(a)}}(a(t)\cdot\vb{t\in x}\cdot b)\ne 0.
+\end{equation*}
+Por lo que debe existir \(t\in\dom(a)\) tal que 
+\(a(t)\cdot\vb{t\in x}\cdot b\ne 0\). Con lo cual tenemos que el rango de \(t\)
+es estrictamente menor que el de \(a\) y \(\vb{t\in x}\cdot b\ne 0\), lo cual
+contradice nuestra elección de \(a\).
+
+
+\subsection{Reemplazo}
+Sean \(x\in\mb\) y \(\varphi\) una fórmula con dos variables libres que se
+comporta de manera funcional, al menos en \(x\), es decir, satisface
+\begin{equation*}
+  \forall u(u\in x\to \exists! v\, \varphi(u,v)).
+\end{equation*}
+Veamos que existe \(z\in\mb\) que cumple
+\begin{equation}
+  \label{eq:re1}
+  \vb{\forall u\in x(\exists v\,\varphi(u,v)\to\exists v\in z\,\varphi(u,v))}
+  =1.
+\end{equation}
+
+Definimos \(z\in\mb\) mediante \(\dom(z)=\bigcup\set{S_t\st\in\dom(x)}\) y
+\(z(s)=1\), donde \(S_t\) es un conjunto (por axioma de elección) que satisface
+\begin{equation*}
+  \sum_{y\in\mb}\vb{\varphi(t,y)}=\sum_{y\in S_{t}}\vb{\varphi(t,y)}.
+\end{equation*}
+Por las fórmulas que dicen cómo evaluar el valor booleano de cuantificadores
+acotados, para ver que se satisface la ecuación~\eqref{eq:re1} debemos mostrar
+\begin{equation*}
+  x(t)\leq\vb{\exists v\,\varphi(t,v)\to\exists v\in z\,\varphi(t,v)},
+\end{equation*}
+para toda \(t\in\dom(x)\). Esto lo haremos viendo que el lado derecho es igual a
+\(1\), es decir, veremos que
+\begin{equation*}
+  \vb{\exists v\,\varphi(t,v)}\leq\vb{\exists v\in z\,\varphi(t,v)}.
+\end{equation*}
+Procedemos mediante la siguiente cadena de desigualdades
+\begin{align*}
+  \vb{\exists v\,\varphi(t,v)} &=
+  \smashoperator{\sum_{a\in\mb}}\vb{\varphi(t,a)}\\
+  &= \smashoperator{\sum_{a\in S_t}}\vb{\varphi(t,a)}
+  && \text{definición de \(S_t\)}\\
+  &\leq \smashoperator{\sum_{a\in\dom(z)}}\vb{\varphi(t,a)}
+  && \text{definición de \(\dom(z)\)}\\
+  &= \smashoperator{\sum_{a\in\dom(z)}}z(a)\cdot\vb{\varphi(t,a)}
+  && \text{definición de \(z(s)\)}\\
+  &= \vb{\exists v\in z\,\varphi(t,v)}.
+\end{align*}
+
+
+\subsection{Elección}
+Recordemos que un conjunto booleano \(x\in\mb\) lleva la información de sus
+elementos en \(\dom(x)\) y la regla de correspondencia \(x(t)\) nos dice que
+tanto \(t\) es elemento de \(x\). Así, para dar una función \(f\) en \(\mb\)
+tenemos que hacer que el dominio de \(f\) sea un conjunto de pares ordenados
+\((a,b)\) según \(\mb\) y la regla de correspondencia \(f(a,b)\) no dirá que
+tanto \(a\) va a dar a \(b\) bajo la función \(f\). Siguiendo estas ideas, la
+imagen de \(f\) en \(\mb\) estará dada por
+\begin{equation}
+  \label{eq:im}
+  \begin{gathered}
+    \dom(\im(f))=\set{b\st(a,b)\in\dom(f)},\\
+    \im(f)(b)=\smashoperator{\sum_{(a,b)\in\dom(f)}}f(a,b).
+  \end{gathered}
+\end{equation}
+
+Ahora sí, veamos que se vale elección en \(\mb\).
+Primero notemos que la formula \enquote{\(s\) es bien ordenable} es
+\(\Sigma_{1}\). Por axioma de elección en \(V\) tenemos que todo conjunto es
+bien ordenable y así
+\begin{equation*}
+  \vb{\check{s}\text{ es bien ordenable}}=1.
+\end{equation*}
+Sea \(x\in\mb\) y veamos que existe \(s\in V\) y una función (según \(\mb\))
+\(f\in\mb\) que cumplen
+\begin{equation*}
+  \vb{\text{\(f\) es una función sobre \(\check{s}\) y
+  \(x\subseteq\im(f)\)}}=1.
+\end{equation*}
+
+Tomamos \(s=\dom(x)\in V\) y consideramos la función
+\(g\colon\dom(\check{s})\to s\) definida por \(g(\check{y})=y\), para todo
+\(y\in s\). Como el dominio y codominio de \(g\) están en \(V\), entonces 
+\(g\in V\) y además es claro que \(g\) es una función sobre \(s\)
+(suprayectiva). Como la fórmula que dice \enquote{\(g\) es sobre \(s\)} es
+\(\Delta_{0}\), entonces
+\begin{equation*}
+  \vb{\text{\(\check{g}\) es una función sobre \(\check{s}\)}}=1.
+\end{equation*}
+
+Para terminar veamos que \(\vb{x\subseteq\im(f)}=1\). Por la definición del
+valor booleano de la inclusión, lo anterior se traduce a demostrar que para todo
+\(t\in\dom(x)=s\) se tiene que \(x(t)\leq\vb{t\in\im(\check{g})}\). De hecho,
+veremos que el lado derecho de la desigualdad anterior es igual a \(1\).
+\begin{align*}
+  \vb{t\in\im(\check{g})} 
+  &= \smashoperator{\sum_{(\check{y},y)\in\dom(\check{g})}}
+  \im(\check{g})(y)\cdot\vb{y=t}\\
+  &= \smashoperator{\sum_{(\check{y},y)\in\dom(\check{g})}}\vb{y=t}
+  &&\text{Por~\eqref{eq:im} y definición de \(\check{g}\)}\\
+  &= \smashoperator{\sum_{y\in s}}\vb{y=t}
+  &&\text{Por definición de \(\check{g}\) y \(s\)}\\
+  &\geq \vb{t=t}\\
+  &= 1.
+\end{align*}
+
+
+\subsection{Potencia}
+Sea \(x\in\mb\) y veamos que existe \(z\in\mb\) que cumple \(\vb{\forall
+y(y\subseteq x\to y\in z)}=1.\) Definimos \(z\) como sigue:
+\begin{gather*}
+  \dom(z)=\set{u\in\mb\st\dom(u)=\dom(x)}=B^{\dom(x)}\\
+  z(u)=\vb{u\subseteq x}.
+\end{gather*}
+Veamos que \(z\) cumple lo que queremos, es decir, que si \(y\in\mb\) entonces
+\(\vb{y\subseteq x}\leq\vb{y\in z}\). Para esto daremos \(y'\in\mb\) tal que
+\begin{equation*}
+  \vb{y\subseteq x}\leq\vb{y'\in z}\cdot\vb{y=y'}.
+\end{equation*}
+Definimos \(y'\) con \(\dom(y')=\dom(x)\), es decir, \(y'\in\dom(z)\) y
+\(y'(t)=\vb{t\in y}\).
+
+Primero notemos que se satisface \(\vb{y'\subseteq y}=1\), como se muestra a
+continuación
+\begin{align*}
+  \vb{y'\subseteq y} 
+  &= \smashoperator{\prod_{t\in\dom(y')}}y'(t)\Rightarrow\vb{t\in y}\\
+  &= \smashoperator{\prod_{t\in\dom(x)}}\vb{t\in y}\Rightarrow\vb{t\in y}\\
+  &= 1.
+\end{align*}
+
+Además de lo anterior también se cumple \(\vb{x\cap y\subseteq y'}=1\). Para
+mostrar la identidad anterior escribimos de manera formal la fórmula dentro del
+valor booleano, \(\forall w(w\in x\cap y\to w\in y')\). Por lo tanto, es
+suficiente demostrar que si \(w\in\mb\) entonces 
+\(\vb{w\in x\cap y}\leq\vb{w\in y'}\).
+
+\begin{align*}
+  \vb{w\in x\cap y} &= \vb{w\in x}\cdot\vb{w\in y}\\
+  &= \smashoperator{\sum_{t\in\dom(x)}}x(t)\cdot\vb{t=w}\cdot\vb{w\in y}
+  && \text{definición de \(\vb{w\in x}\)}\\
+  &\leq \smashoperator{\sum_{t\in\dom(x)}}\vb{t=w}\cdot\vb{t\in y}\\
+  &= \smashoperator{\sum_{t\in\dom(x)}}\vb{t=w}\cdot y'(t)
+  && \text{definición de \(y'\)}\\
+  &= \vb{w\in y'}.
+\end{align*}
+
+Ahora usaremos que la fórmula que dice 
+\enquote{\(a\) está contenido en \(b\)} es \(\Delta_{0}\) para concluir:
+\begin{align*}
+  \vb{y\subseteq x} &= \vb{y\subseteq x}\cdot\vb{x\cap y\subseteq y'}\\
+  &= \vb{y\subseteq x\land x\cap y\subseteq y'}\\
+  &\leq \vb{y\subseteq y'}\\
+  &= \vb{y\subseteq y'}\cdot\vb{y'\subseteq y}\\
+  &= \vb{y=y'}.
+\end{align*}
+
+Finalmente notamos que se tiene la siguiente desigualdad
+\begin{align*}
+  \vb{y\subseteq x} &= \vb{\forall w(w\in y\to w\in x)}\\
+  &= \smashoperator{\prod_{a\in\mb}}\vb{a\in y}\Rightarrow\vb{a\in x}\\
+  &\leq \smashoperator{\prod_{a\in\dom(y')}}\vb{a\in y}\Rightarrow\vb{a\in x}\\
+  &= \smashoperator{\prod_{a\in\dom(y')}}y'(a)\Rightarrow\vb{a\in x}\\
+  &= \vb{y'\subseteq x}\\
+  &= z(y')\\
+  &\leq \vb{z'\in y}.
+\end{align*}
+
+Con todo lo anterior hemos demostrado
+\begin{equation*}
+  \vb{y\subseteq x}\leq\vb{y'\in z}\cdot\vb{y=y'}\leq\vb{y\in z}.
+\end{equation*}
+
+\end{document}
