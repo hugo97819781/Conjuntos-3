@@ -27,21 +27,14 @@
         \setenumerate[1]{label=\MakeLowercase{\roman*}), ref=\roman*}
         \setenumerate[2]{label=\MakeLowercase{\alph*}), ref=\alph*}
     \usepackage{mathtools}
-    \usepackage{amsthm}
+    \usepackage[predefined={parent=section}]{keytheorems}
     \usepackage[T1]{fontenc}
     \usepackage{stix2}
+    \usepackage[hidelinks]{hyperref}
 	\renewcommand{\qedsymbol}{$\blacksquare$}
 	\addto\captionsspanish{\renewcommand{\proofname}{\normalfont\bfseries Demostración}}	
 	\newenvironment{solucion}{\renewcommand{\qedsymbol}{$\boxtimes$}\begin{proof}[\normalfont\bfseries Solución]}{\end{proof}}
-
-        \newtheoremstyle{manual}{3pt}{3pt}{\normalfont}{}{\bfseries}{.}{.5em}{#1 #3}
-		\theoremstyle{manual}
-		\newtheorem{proposicion}{Proposición}
-        \newtheorem{definicion}{Definición}
-        \newtheorem{teorema}{Teorema}
-        \newtheorem{lema}{Lema}
-        \newtheorem{corolario}{Corolario}
-        \newtheorem*{ejercicio*}{Ejercicio}        
+           
 %%% C O M A N D O S %%%
     \renewcommand{\emptyset}{\varnothing}
     \NewDocumentCommand{\mb}{O{}}{\cramped{V^{(B)}_{#1}}}      %V^(B)
@@ -49,7 +42,9 @@
     \DeclarePairedDelimiter{\vb}{\lBrack}{\rBrack}             %|| - ||
     \DeclareMathOperator{\dom}{dom}                            %dominio
     \DeclareMathOperator{\cod}{cod}                            %codominio
-    \DeclareMathOperator{\im}{im}                              %imagen 
+    \DeclareMathOperator{\im}{im}                              %imagen
+    \DeclareMathOperator{\stab}{stab}                          %estabilizador    
+    \NewDocumentCommand{\est}{m}{\mathfrak{#1}}                %estructura  
 %conjuntos
 \newcommand{\st}{}                                              
 \newcommand{\SetSymbol}[1][]{%
@@ -82,5 +77,260 @@ Como ya hemos visto, en el método de forcing se construyen modelos de
 usando este método es imposible. Sin embargo, es posible hacer una modificación
 que permita construir modelos de \textsc{zf} donde no se satisfaga el axioma de
 elección. 
+
+Lo que haremos es considerar el modelo \(\mb\) y quedarnos con sus elementos
+\textit{simétricos}. Así, lo primero es definir qué es ser simétrico. Para esto
+empezamos recordando algunos conceptos de teoría de grupos.
+
+\begin{definition}
+Sean \(G\) un grupo y \(X\) un conjunto. Una \emph{acción} de \(G\) sobre \(X\)
+es una función \(\alpha\colon G\times X\to X\) que satisface:
+\begin{enumerate}
+    \item \(\alpha(e,x)=x\) para toda \(x\in X\), donde \(e\) es el elemento
+    neutro de \(G\). 
+    \item \(\alpha(g,\alpha(h,x))=\alpha(gh,x)\) para toda \(g,h\in G\) y 
+    \(x\in X\).
+\end{enumerate}
+\end{definition}
+
+Usaremos la notación usual de \(g\cdot x\) para denotar \(\alpha(g,x)\). Con
+esta notación, las condiciones anteriores se pueden escribir como \(e\cdot x=x\)
+y \(g\cdot(h\cdot x)=(gh)\cdot x\).
+
+Dada una acción \(G\times X\to X\) es claro que si \(g\in G\) entonces la
+función \(x\mapsto g\cdot x\) es una biyección de \(X\) en sí mismo. En nuestro
+caso queremos tomar una acción de un grupo \(G\) en un álgebra de Boole completa
+\(B\). En esta situación necesitamos que la acción respete la estructura de
+\(B\), es decir, que \(g\cdot-\colon B\to B\) sea un morfismo de álgebras de
+Boole completas. Cuando suceda lo anterior diremos que \(G\) actúa por
+automorfismos de \(B\).
+
+El siguiente paso es extender una acción por automorfismos de \(G\) sobre un
+álgebra de Boole completa \(B\) a una acción sobre una estructura \(B\)-valuada.
+
+\begin{definition}[label=def:aest]
+    Sean \(B\) un álgebra de Boole completa y \(\est{A}\) una estructura
+    \(B\)-valuada. Una acción de un grupo \(G\) sobre \(\est{A}\) es una acción
+    de \(G\) sobre \(B\) por automorfismos y una acción sobre \(A\) tales que
+    para cualquier fórmula atómica \(\varphi\) se satisface
+    \begin{equation*}
+        \vb{\varphi(ga)}=g\cdot\vb{\varphi(a)}.
+    \end{equation*}
+\end{definition}
+
+Para diferenciar las acciones sobre \(B\) y sobre \(A\), en la definición
+anterior, usamos \(g\cdot b\) para denotar la acción sobre \(B\) y \(ga\) para
+denotar la acción sobre \(A\).
+
+\begin{proposition}[label=prop:afor]
+    Sea \(G\times\est{A}\to\est{A}\) una acción.
+    Si \(\varphi\) es una fórmula, \(a\in A\) y \(g\in G\), entonces
+    \begin{equation*}
+        \vb{\varphi(ga)}=g\cdot\vb{\varphi(a)}.
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    La demostración es por inducción sobre la formación de fórmulas.
+    Las atómicas se tienen por definición de acción. Todos los conectivos y
+    cuantificadores se hacen de la misma forma, así que sólo haremos el caso del
+    existencial.
+    \begin{align*}
+        \vb{\exists x\varphi(gx)} &= \bigvee_{a\in A}\vb{\varphi(ga)}\\
+        &= \bigvee_{a\in A}g\cdot\vb{\varphi(a)} && \text{hipótesis de inducción}\\
+        &=g\cdot\bigvee_{a\in A}\vb{\varphi(a)} && \text{acción por automorfismos}\\
+        &=g\cdot\vb{\exists x\varphi(x)}. \tag*{\qedhere}
+    \end{align*}
+\end{proof}
+
+Ahora, dada una acción por automorfismos \(G\times B\to B\) definimos una
+función \(G\times\mb\to\mb\) por recursión sobre la relación \enquote{estar en
+el dominio de} como sigue
+\begin{equation*}
+    \dom(gx)=\set{gt\st t\in\dom(x)}, \quad gx(gt)=g\cdot x(t).
+\end{equation*}
+
+\begin{proposition}
+    La función anterior define una acción sobre \(\mb\).
+\end{proposition}
+\begin{proof}
+    Todas las demostraciones se harán por inducción.
+    Primero veamos que actuar con el neutro del grupo es la identidad. Para esto
+    notamos
+    \begin{alignat*}{2}
+        \dom(ex)&=\set{et\st t\in\dom(x)} &\qquad ex(et)&=e\cdot x(t)\\
+        &=\set{t\st t\in\dom(x)} & &=x(t)\\
+        &=\dom(x).
+    \end{alignat*}
+    Para la asociatividad de la acción consideramos,
+    \begin{alignat*}{2}
+        \dom((gh)x)&=\set{(gh)t\st t\in\dom(x)} 
+            &\qquad (gh)x((gh)t)&=gh\cdot x(t)\\
+        &=\set{g(ht)\st t\in\dom(x)} & &=g\cdot(h\cdot x(t))\\
+        &=\set{gs\st s\in\dom(hx)} & &=g\cdot(hx(ht))\\
+        &=\dom(g(hx)) & &=g(hx)(g(ht)).
+    \end{alignat*}
+    Por ultimo, tenemos que mostrar que la acción es compatible con el valor
+    booleano de las atómicas en el sentido de la definición~\ref{def:aest}. Sólo
+    veremos que \(\vb{gx\subseteq gy}=g\cdot\vb{x=y}\), ya que el resto se hace
+    de la misma manera.
+    \begin{align*}
+        \vb{gx\subseteq gy}
+        &=\bigwedge_{\mathclap{gt\in\dom(gx)}}gx(gt)\Rightarrow\vb{gt\in gy}\\
+        &=\bigwedge_{\mathclap{t\in\dom(x)}}g\cdot x(t)\Rightarrow\vb{gt\in gy}
+        && \text{definición de \(gx\)}\\
+        &=\bigwedge_{\mathclap{t\in\dom(x)}}g\cdot x(t)\Rightarrow g\cdot\vb{t\in y}
+        && \text{HI}\\
+        &=g\cdot\bigwedge_{\mathclap{t\in\dom(x)}}x(t)\Rightarrow\vb{t\in y}
+        && \text{\(g\cdot\) es morfismo}\\
+        &=g\cdot\vb{x\subseteq y}. \tag*{\qedhere}
+    \end{align*}
+\end{proof}
+
+Ahora que ya tenemos que una acción \(G\times B\to B\) por automorfismos induce
+una acción de la estructura \(B\)-valuada \(\mb\), podemos ver cómo se comporta
+esta acción en algunos elementos.
+
+\begin{lemma}[label=lema:acan]
+    Si \(g\in G\) y \(x\in V\), entonces \(g\check{x}=\check{x}\).
+\end{lemma}
+\begin{proof}
+    La demostración es por inducción sobre la relación \(\in\).
+    \begin{alignat*}{2}
+        \dom(g\check{x})&=\set{gt\st t\in \dom(\check{x})} &\qquad
+        g\check{x}(g\check{t})&=g\cdot\check{x}(\check{t})\\
+        &=\set{g\check{t}\st t\in x} & &=g\cdot 1\\
+        &=\set{\check{t}\st t\in x} & &=1\\
+        &=\dom(\check{x}) & &=\check{x}(\check{t})\\
+        & & &=\check{x}(g\check{t})
+        \tag*{\qedhere}
+    \end{alignat*}
+\end{proof}
+
+Gracias al lema anterior podemos determinar, de manera sencilla, cómo es el
+valor booleano de fórmulas en nombres canónicos.
+
+\begin{lemma}[label=lema:finv]
+    Si \(\varphi\) es una fórmula, \(x\in V\) y \(g\in G\), entonces
+    \begin{equation*}
+        g\cdot\vb{\varphi(\check{x})}=\vb{\varphi(\check{x})}.
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    Esto es una consecuencia inmediata de la proposición~\ref{prop:afor} y el
+    lema~\ref{lema:acan}.
+\end{proof}
+
+Para dar una consecuencia del lema anterior necesitamos un par de conceptos.
+
+\begin{definition}
+    Sean \(B\) un álgebra de Boole y \(G\times B\to B\) una acción por
+    automorfismos.
+    \begin{enumerate}
+        \item Un elemento \(b\in B\) es \emph{invariante} si \(g\cdot b=b\) para
+        todo \(g\in G\).
+        \item \(B\) es \emph{homogénea} si sus únicos elementos invariantes son
+        \(0\) y \(1\).
+    \end{enumerate}
+\end{definition}
+
+\begin{corollary}
+    Si \(B\) es homogénea, \(\varphi\) es una fórmula y \(x\in V\), entonces
+    \begin{equation*}
+        \vb{\varphi(\check{x})}=0 \quad\text{ó}\quad
+        \vb{\varphi(\check{x})}=1.
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    Por el lema~\ref{lema:finv} tenemos que \(\vb{\varphi(\check{x})}\) es un
+    elemento invariante del álgebra. Luego, como \(B\) es homogénea se sigue que
+    \(\vb{\varphi(\check{x})}=0\) ó \(\vb{\varphi(\check{x})}=1\).
+\end{proof}
+
+Dada una acción \(\mb\times G\to G\) nos gustaría decir que un elemento
+\(x\in\mb\) es simétrico si \(gx=x\) para \enquote{muchos} \(g\in G\). Con la
+terminología de grupos, otra forma de decir esto es que el estabilizador de
+\(x\) es un subgrupo grande de \(G\). Recordemos que el estabilizador de \(x\)
+es el conjunto
+\begin{equation*}
+    \stab(x)=\set{g\in G\st gx=x}.
+\end{equation*}
+Como siempre, la definición de grande está dada por un filtro.
+
+\begin{definition}
+    Sea \(G\) un grupo. Decimos que \(\Gamma\) es un filtro de subgrupos de
+    \(G\) si para cualesquiera dos subgrupos \(H\) y \(K\) de \(G\) se
+    satisface:
+    \begin{enumerate}
+        \item \(G\in\Gamma\).
+        \item Si \(H\in\Gamma\) y \(H\subseteq K\), entonces \(K\in\Gamma\).
+        \item Si \(H,K\in\Gamma\), entonces \(H\cap K\in\Gamma\).
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    Sea \(G\) un grupo, \(G\times\mb\to\mb\) una acción y \(\Gamma\) un filtro
+    de subgrupos de \(G\). Un elemento \(x\in\mb\)
+    es \emph{\(\Gamma\)-simétrico} si \(\stab(x)\in\Gamma\).
+\end{definition}
+
+Cuando no haya confunción acerca de qué filtro de subgrupos estamos hablando,
+diremos simplemente que \(x\) es simétrico.
+
+Por el lema~\ref{lema:acan} se tiene que \(\stab(\check{x})=G\). Así, los
+nombres canónicos de elementos de \(V\) son simétricos.
+
+Ahora podemos dar la estructura de los elementos simétricos. La daremos como una
+jerarquía definida por recursión.
+\begin{align*}
+    &V^{(\Gamma)}_0=\emptyset\\
+    &V^{(\Gamma)}_{\alpha+1}
+    =\set{x\colon A\to B\st A\subseteq V^{(\Gamma)}_\alpha \text{ y } \stab(x)\in\Gamma}\\
+    &V^{(\Gamma)}_{\lambda}=\bigcup_{\alpha<\lambda}V^{(\Gamma)}_{\alpha} 
+    &&\text{si \(\lambda\) es límite}\\
+    &V^{(\Gamma)}=\bigcup_{\alpha\in\mathrm{Ord}}V^{(\Gamma)}_\alpha.
+\end{align*}
+
+Como esta estructura es una subestructura de \(\mb\), podemos tomar el valor
+booleano de fórmulas con parámetros en \(V^{(\Gamma)}\) como el mismo que en
+\(\mb\). Esto es, si \(\varphi\) es una fórmula y \(x\in \mg\), entonces
+\begin{equation*}
+    \vb{\varphi(x)}^{\Gamma}=\vb{\varphi(x)}^{B}.
+\end{equation*}
+
+De ahora en adelante el objetivo es mostrar que \(V^{(\Gamma)}\) es un modelo de
+\textsc{zf}  y que el axioma de elección no se satisface en este modelo. Primero
+veamos qué se necesita para que la acción \(G\times\mb\to\mb\) se restrinja a
+\(\mg\). Para esto, dado \(x\in\mg\) debemos mostrar que \(gx\in\mg\), es decir,
+si \(\stab(x)\in\Gamma\) entonces \(\stab(gx)\in\Gamma\). Para esto, necesitamos
+saber cómo se relacionan los estabilizadores de \(x\) y \(gx\).
+
+\begin{lemma}
+    Si \(g\in G\) y \(x\in\mb\), entonces \(\stab{gx}=g(\stab(x))g^{-1}\).
+\end{lemma}
+\begin{proof}
+    Notemos que si \(h\in\stab(x)\), entonces \((hg)x=h(gx)=gx\). Si
+    multiplicamos ambos lados por \(g^{-1}\) se tiene que \(x=(g^{-1}hg)x\).
+    Esto significa que \(g^{-1}hg\in\stab(x)\). Por lo tanto, 
+    \(h\in g(\stab(x))g^{-1}\).
+    
+    Sea \(h\in\stab(x)\) y notemos que
+    \begin{equation*}
+        (ghg^{-1})(gx)=g(hg^{-1}gx)=g(hx)=gx.
+    \end{equation*}
+    De esta manera \(ghg^{-1}\in\stab(gx)\).
+\end{proof}
+
+Con el lema anterior, para restringir la acción a \(\mg\) necesitamos pedir que
+el filtro \(\Gamma\) sea cerrado por conjugación.
+
+\begin{definition}
+    Un filtro de subgrupos \(\Gamma\) de \(G\) es \emph{normal}
+    si para cualquier \(H\in\Gamma\) y \(g\in G\) se tiene que \(gHg^{-1}\in\Gamma\).
+\end{definition}
+
+\begin{corollary}
+    Si \(\Gamma\) es un filtro de subgrupos normal de \(G\), entonces la acción
+    \(G\times\mb\to\mb\) se restringe a una acción \(G\times\mg\to\mg\).
+\end{corollary}
 
 \end{document}
