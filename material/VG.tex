@@ -43,7 +43,13 @@
     \DeclareMathOperator{\dom}{dom}                            %dominio
     \DeclareMathOperator{\cod}{cod}                            %codominio
     \DeclareMathOperator{\im}{im}                              %imagen
-    \DeclareMathOperator{\stab}{stab}                          %estabilizador    
+    \newcommand{\id}{\mathrm{id}}                              %identidad
+    \DeclareMathOperator{\stab}{stab}                          %estabilizador 
+    \DeclareMathOperator{\fn}{Fn}                              %Fn(-,-) 
+    \DeclareMathOperator{\arriba}{\uparrow}                    %arriba
+    \DeclareMathOperator{\abajo}{\downarrow}                   %abajo 
+    \DeclareMathOperator{\inte}{int}                           %interior
+    \DeclareMathOperator{\cer}{cl}                             %cerradura
     \NewDocumentCommand{\est}{m}{\mathfrak{#1}}                %estructura  
 %conjuntos
 \newcommand{\st}{}                                              
@@ -304,7 +310,7 @@ veamos qué se necesita para que la acción \(G\times\mb\to\mb\) se restrinja a
 si \(\stab(x)\in\Gamma\) entonces \(\stab(gx)\in\Gamma\). Para esto, necesitamos
 saber cómo se relacionan los estabilizadores de \(x\) y \(gx\).
 
-\begin{lemma}
+\begin{lemma}[label=lema:stab]
     Si \(g\in G\) y \(x\in\mb\), entonces \(\stab{gx}=g(\stab(x))g^{-1}\).
 \end{lemma}
 \begin{proof}
@@ -332,5 +338,196 @@ el filtro \(\Gamma\) sea cerrado por conjugación.
     Si \(\Gamma\) es un filtro de subgrupos normal de \(G\), entonces la acción
     \(G\times\mb\to\mb\) se restringe a una acción \(G\times\mg\to\mg\).
 \end{corollary}
+\begin{proof}
+    Como \(\Gamma\) es normal, el lema~\ref{lema:stab} implica que si
+    \(x\in\mg\) entonces \(gx\in\mg\). Además, como el valor booleano de
+    fórmulas con parámetros en \(\mg\) es el mismo que en \(\mb\), se sigue que
+    la acción \(G\times\mb\to\mb\) se restringe a una acción
+    \(G\times\mg\to\mg\).
+\end{proof}
+
+\begin{theorem}
+    \(\mg\models\text{\textsc{zf}}\).
+\end{theorem}
+\begin{proof}
+    La
+    demostración de extensionalidad y reemplazo son iguales a las de \(\mb\).
+    Por el lema~\ref{lema:acan} se tiene que \(\check{\omega}\in\mg\), por lo
+    que el axioma de infinito se satisface. Buena fundación se sigue del hecho
+    que \(\mg\) es una jerarquía acumulativa, o bien, por ser subclase de
+    \(\mb\).
+
+    La demostración del resto de los axiomas seguirá el siguiente esquema: dados
+    conjuntos \(x,y\in\mg\) (sólo el axioma del par requiere dos conjuntos, el
+    resto requiere uno), se considera el conjunto \(z\in\mb\) que satisface el
+    axioma en \(\mb\). Luego, se debe mostrar que \(z\in\mg\), para lo cual se
+    demostrará que \(\stab(z)\in\Gamma\). Para esto se usará que
+    \(\stab(x),\stab(y)\in\Gamma\) y se demostrará que \(\stab(z)\in\Gamma\).
+
+    Para el axioma del par consideramos \(x,y\in\mg\) y el conjunto en \(\mb\)
+    que resulta ser el par de \(x\) e \(y\), es decir, el conjunto
+    \begin{equation*}
+        \dom(z)=\set{x,y}, \quad z(x)=z(y)=1.
+    \end{equation*}
+    La demostración consiste en ver que \(\stab(z)\in\Gamma\). Para esto,
+    veremos que \(\stab(x)\cap\stab(y)\subseteq\stab(z)\). Sea
+    \(g\in\stab(x)\cap\stab(y)\) y notemos que
+    \begin{alignat*}{2}
+        \dom(gz)&=\set{gx,gy} &\qquad gz(gx)&=g\cdot z(x)\\
+        &=\set{x,y} & &=g\cdot 1\\
+        &=\dom(z) & &=1=z(gx).
+    \end{alignat*}
+    Por lo tanto, \(\stab(x)\cap\stab(y)\subseteq\stab(z)\).
+
+    Para el axioma de separación tomemos \(x\in\mg\) y \(\varphi\) una fórmula.
+    Recordemos que el conjunto en \(\mb\) que satisface separación está dado por
+    \begin{equation*}
+        \dom(y)=\dom(x), \quad y(t)=x(t)\land\vb{\varphi(t)}.
+    \end{equation*}
+    Veamos que \(\stab(x)\subseteq\stab(y)\). Sea \(g\in\stab(x)\). Como
+    \(\dom(x)=\dom(gx)\), entonces todo \(s\in\dom(x)\) es de la forma \(gt\)
+    para algún \(t\in\dom(x)\).
+    \begin{alignat*}{2}
+        \dom(gy)&=\set{gt\st t\in\dom(y)} &\qquad gy(s)&=gy(gt)\\
+        &=\set{gt\st t\in\dom(x)} & &=g\cdot y(t)\\
+        &=\dom(gx) & &=g\cdot(x(t)\land\vb{\varphi(t)})\\
+        &=\dom(x) & &=gx(gt)\land\vb{\varphi(gt)}\\
+        &=\dom(y) & &=x(s)\land\vb{\varphi(s)}=y(s).
+    \end{alignat*}
+    Así, \(\stab(x)\subseteq\stab(y)\).
+    
+    Para el axioma de unión tomemos \(x\in\mg\) y el conjunto en \(\mb\) que
+    satisface el axioma de unión, es decir, el conjunto \(y\) dado por
+    \begin{equation*}
+        \dom(y)=\bigcup_{\mathclap{t\in\dom(x)}}\dom(t), \quad y(s)=1.
+    \end{equation*}
+    Sea \(g\in\stab(x)\), entonces \(\stab(gy)=\dom(y)\) ya que es la misma
+    unión, sólo tiene una permutación de sus uniendos. Además,
+    \begin{equation*}
+        gy(t)=gy(gs)=g\cdot y(s)=g\cdot 1=1=y(t).
+    \end{equation*}
+    De esta manera, \(\stab(x)\subseteq\stab(y)\).
+
+    Veamos que se satisface el axioma de potencia. Dado \(x\in\mg\) consideremos
+    el conjunto \(y\in\mb\) dado por
+    \begin{equation*}
+        \dom(y)=\set{u\in\mg\st \dom(u)=\dom(x)}, \quad y(u)=\vb{u\subseteq x}.
+    \end{equation*}
+    Sea \(g\in\stab(x)\). Si tomamos \(u\in\mg\) tal que \(\dom(u)=\dom(x)\),
+    entonces
+    \begin{equation*}
+        \dom(gu)=\set{gt\st t\in\dom(u)}=\set{gt\st t\in\dom(x)}
+        =\dom(gx)=\dom(x)=\dom(u).
+    \end{equation*}
+    Así, \(\dom(gy)=\dom(y)\). Además,
+    \begin{equation*}
+        gy(gu)=g\cdot y(u)=g\cdot\vb{u\subseteq x}=\vb{gu\subseteq gx}=\vb{gu\subseteq x}=y(gu).
+    \end{equation*}
+    Con lo cual concluimos que \(\stab(x)\subseteq\stab(y)\).
+\end{proof}
+
+Ahora que ya sabemos que para cualquier grupo \(G\) y cualquier filtro de
+subgrupos \(\Gamma\) se tiene que \(\mg\models\text{\textsc{zf}}\), el siguiente
+paso es mostrar que el axioma de elección no se satisface en \(\mg\) para
+ciertos \(G\), \(\Gamma\) y \(B\).
+
+Lo que haremos para que no se satisfaga el axioma de elección es añadir
+\(\omega\) reales y mostrar que el conjunto de estos reales es infinito en el
+sentido de Cantor, pero finito en el de Dedekind. Para añadir \(\omega\) reales
+sabemos que podemos tomar el orden parcial \(P=\fn(\omega\times\omega,2)\).
+
+Luego, hay que hacer la completación booleana \(e\colon P\to B\). Como \(P\) es
+separativo, sólo hay que tomar al espacio topológico \(P\) con la topología del
+orden, que denotamos con \(X\), y tomar \(B\) como el álgebra de Boole de los
+conjuntos abiertos regulares de este espacio. En este caso, la función \(e\) es
+la función que a cada \(p\in P\) le asigna \(\abajo p\).
+
+El siguiente paso es definir una acción en \(B\) por automorfismos. Empezaremos
+dando una acción en el orden parcial \(P\), luego la extenderemos al espacio
+topológico \(X\) y finalmente al álgebra de Boole \(B\). Definimos una función
+\(S_{\omega}\times P\to P\) de la siguiente manera, si \(g\in S_{\omega}\) y
+\(p\in P\), entonces
+\begin{equation}
+    \label{eq:accionP}
+    \dom(g^*p)=(\id_{\omega}\times g)^{-1}(\dom(p)), \quad 
+    (g^*p)(n,m)=p(n,gm).
+\end{equation}
+
+\begin{lemma}
+    La función \(S_{\omega}\times P\to P\) de arriba es una acción contravariante.
+\end{lemma}
+\begin{proof}
+    El neutro del grupo \(S_{\omega}\) es la identidad \(\id_{\omega}\). Así, es
+    fácil ver que \(\id_{\omega}^*p=p\) para toda \(p\in P\). Para la
+    asociatividad consideremos \(g,h\in S_{\omega}\) y \(p\in P\). Entonces,
+    \begin{alignat*}{2}
+        \dom((gh)^*p)&=(\id_{\omega}\times(gh))^{-1}(\dom(p)) 
+            &\qquad (gh)^*p(n,m)&=p(n,(gh)m)\\
+        &=(\id_{\omega}\times h)^{-1}((\id_{\omega}\times g)^{-1}(\dom(p)))
+        & &=p(n,g(hm))\\
+        &=(\id_{\omega}\times h)^{-1}(\dom(g^*p))
+        & &=p(n,g(hm))\\
+        &=(\id_{\omega}\times h)^{-1}(\dom(g^*p))
+        & &=g^*p(n,hm)\\
+        &=\dom(h^*(g^*p)) & &=h^*(g^*p)(n,m).
+    \end{alignat*}
+    Por lo tanto, \((gh)^*p=h^*(g^*p)\).
+\end{proof}
+
+\begin{remark}
+    Notemos que de la definición de la acción en la ecuación~\eqref{eq:accionP}
+    se sigue que si \(q\subseteq p\) entonces \(g^*q\subseteq g^*p\). Esto es,
+    \(p\leq q\) implica \(g^*p\leq g^*q\), es decir, la acción preserva el
+    orden.
+\end{remark}
+
+Ahora veamos que esta acción se extiende al espacio topológico \(X\). Como el
+conjunto subyacente de \(X\) es \(P\), entonces la acción de \(S_{\omega}\)
+sobre \(X\) se define de la misma manera que sobre \(P\).
+
+\begin{lemma}[label=lema:cont]
+    Para cada \(g\in S_{\omega}\) la función \(g^*\colon X\to X\) es continua.
+\end{lemma}
+\begin{proof}
+    Basta mostrar que la preimagen de un abierto básico es un abierto. Sea
+    \(p\in P\) y veamos que \((g^*)^{-1}(\abajo p)\) es un abierto. Sean 
+    \(q\in (g^*)^{-1}(\abajo p)\) y \(r\leq p\). Como la acción preserva el
+    orden tenemos \(g^*r\leq g^*q\in\abajo p\). Por lo tanto, \(r\in
+    (g^*)^{-1}(\abajo p)\). Así, \((g^*)^{-1}(\abajo p)\) es un abierto.
+\end{proof}
+
+\begin{corollary}
+    La acción \(S_{\omega}\times X\to X\) es por homeomorfismos.
+\end{corollary}
+\begin{proof}
+    Como \(S_{\omega}\times P\to P\) es una acción entonces \(g^*\colon P\to P\)
+    es biyección, con inversa \((g^{-1})^*\). Por el lema~\ref{lema:cont}
+    sabemos que tanto \(g^*\) como \((g^{-1})^*\) son continuas. Por lo tanto,
+    \(g^*\) es un homeomorfismo.
+\end{proof}
+
+Antes de extender esta acción a \(B\) veamos algunas de las propiedades del
+espacio \(X\). Si \(A\subseteq P\), denotaremos con \(\inte(A)\) al interior de
+\(A\) y con \(\cer(A)\) a la cerradura de \(A\). Elegimos esta notación para
+evitar que se acumulen tantos índices.
+
+\begin{lemma}
+    Sea \(A\subseteq P\). Se satisfacen las siguientes condiciones:
+    \begin{enumerate}
+        \item \(p\in\inte(A)\) si y sólo si \(\abajo p\subseteq A\).
+        \item \(\cer(A)=\arriba A=\set{p\in P\st \exists a\in A(a\leq p)}\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    El primer punto es claro ya que \(\abajo p\) es el abierto básico más chico
+    que tiene a \(p\).
+
+    Para el segundo punto basta notar que
+    \begin{equation*}
+        p\in\cer(A) \iff \abajo p\cap A\neq\emptyset \iff 
+        \exists a\in A(a\leq p) \iff p\in\arriba A.
+        \qedhere
+    \end{equation*}
+\end{proof}
 
 \end{document}
