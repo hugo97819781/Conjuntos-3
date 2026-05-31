@@ -496,7 +496,7 @@ sobre \(X\) se define de la misma manera que sobre \(P\).
     (g^*)^{-1}(\abajo p)\). Así, \((g^*)^{-1}(\abajo p)\) es un abierto.
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}[label=cor:homeo]
     La acción \(S_{\omega}\times X\to X\) es por homeomorfismos.
 \end{corollary}
 \begin{proof}
@@ -506,12 +506,107 @@ sobre \(X\) se define de la misma manera que sobre \(P\).
     \(g^*\) es un homeomorfismo.
 \end{proof}
 
-Antes de extender esta acción a \(B\) veamos algunas de las propiedades del
-espacio \(X\). Si \(A\subseteq P\), denotaremos con \(\inte(A)\) al interior de
+\begin{remark}[label=rem:accionX]
+    En las demostraciones del lema~\ref{lema:cont} y del
+    corolario~\ref{cor:homeo} se observó que la función \((-)^*\colon G\to X^X\)
+    satisface:
+    \begin{enumerate}
+        \item \((e)^*=\id_X\),
+        \item \((gh)^*=(h)^*(g)^*\) para cualesquiera \(g,h\in G\),
+        \item \((g^{-1})^*=(g^*)^{-1}\) para todo \(g\in G\).
+    \end{enumerate}
+\end{remark}
+
+Ahora extendemos la acción de \(S_{\omega}\) a \(B\). Esto es, para cada \(g\in
+S_{\omega}\) y \(b\in B\) definimos \(g\cdot b=(g^*)^{-1}[b]\). Como \(g^*\) es
+un homeomorfismo, entonces su imagen inversa se lleva bien con interiores y
+cerraduras, por lo que si \(b\in B\), entonces \(g\cdot b\in B\).
+
+\begin{lemma}
+    La función \(S_{\omega}\times B\to B\) definida como arriba es
+    una acción por automorfismos.
+\end{lemma}
+\begin{proof}
+    Como \(e^*\colon X \to X\) es la identidad, entonces \(e\cdot b=b\). Si
+    \(g,h\in S_{\omega}\) y \(b\in B\), entonces, por las propiedades de la
+    función \((-)^*\) en la observación~\ref{rem:accionX}, se tiene que
+    \begin{align*}
+        (gh)\cdot b&=((gh)^*)^{-1}[b] \\
+        &=(h^*g^*)^{-1}[b] \\
+        &=(g^*)^{-1}[(h^*)^{-1}[b]] \\
+        &=(g^*)^{-1}[h\cdot b] \\
+        &=g\cdot(h\cdot b).
+    \end{align*}
+    Es fácil ver que \(g\cdot-\colon B\to B\) es un morfismo de álgebras de
+    Boole completas, ya que es la imagen inversa de un homeomorfismo, la cual se
+    lleva bien con las operaciones de unión, intersección, complemento, interior
+    y cerradura.
+\end{proof}
+
+Por lo que ya hicimos antes sabemos que la acción \(S_{\omega}\times B\to B\)
+por automorfismos induce una acción \(S_{\omega}\times\mb\to\mb\). Con esto el
+siguiente paso es dar un filtro de subgrupos. Notemos que 
+\(\set{\stab(n)\st n\in\omega}\) tiene pif. De hecho, si tomamos
+\(n_1,\dots,n_m\in\omega\), entonces
+\begin{equation*}
+    \lvert\stab(n_1)\cap\cdots\cap\stab(n_m)\rvert = \lvert S_{\omega}\rvert.
+\end{equation*}
+Por lo tanto, podemos tomar el filtro de subgrupos \(\Gamma\) generado por
+\(\set{\stab(n)\st n\in\omega}\). Para facilitar la notación, dado un
+subconjunto \(J\subseteq\omega\) tomamos
+\begin{equation*}
+    \stab(J)=\bigcap_{n\in J}\stab(n).
+\end{equation*}
+Ahora, con esta notación, el filtro \(\Gamma\) es el siguiente conjunto
+\begin{equation*}
+    \Gamma=\set{H\leq S_{\omega}\st \exists J\subseteq\omega \text{ finito }
+    (\stab(J)\subseteq H)}.
+\end{equation*}
+
+\begin{remark}
+    Sea \(J\subseteq\omega\) finito y \(g\in S_{\omega}\). Consideramos el
+    conjunto \(gJ=\set{gn\st n\in J}\).
+    Notemos que la demostración del lema~\ref{lema:stab} también muestra que
+    \begin{equation*}
+        \stab(gJ)=g\stab(J)g^{-1}.
+    \end{equation*}
+\end{remark}
+
+\begin{lemma}
+    El filtro \(\Gamma\) es normal.
+\end{lemma}
+\begin{proof}
+    Sean \(H\in\Gamma\) y \(g\in S_{\omega}\). Por definición de \(\Gamma\) existe un
+    conjunto finito \(J\subseteq\omega\) tal que \(\stab(J)\subseteq H\). Es
+    claro que \(gJ\) es finito. Luego, por la observación anterior se tiene
+    \begin{equation*}
+        \stab(gJ)=g\stab(J)g^{-1}\subseteq gHg^{-1}.
+    \end{equation*}
+    Por lo tanto, \(gHg^{-1}\in\Gamma\).
+\end{proof}
+
+Con lo anterior podemos tomar elementos de \(\mg\), argumentar en \(\mb\) y
+concluir en \(\mg\). Esto se debe a que el valor booleano de fórmulas con
+parámetros en \(\mg\) es el mismo y la acción se restringe a \(\mg\).
+
+Empecemos la construcción del conjunto Cantor infinito y Dedekind finito.
+
+\begin{definition}
+    Para cada \(m\in\omega\) tomamos \(u_m\in\mb\) definido como
+    \begin{equation*}
+        \dom(u_m)=\dom(\check{\omega}), \quad
+        u_m(\check{n})=\set{p\in P\st p(n,m)=1}.
+    \end{equation*}
+\end{definition}
+
+Primero tenemos que mostrar que \(u_m\) está bien definido, es decir, que
+\(u_m(\check{n})\) es un elemento de \(B\). Para esto empezamos haciendo algunas
+observaciones sobre el interior y la cerradura en el espacio \(X\).
+Si \(A\subseteq P\), denotaremos con \(\inte(A)\) al interior de
 \(A\) y con \(\cer(A)\) a la cerradura de \(A\). Elegimos esta notación para
 evitar que se acumulen tantos índices.
 
-\begin{lemma}
+\begin{lemma}[label=lema:intercer]
     Sea \(A\subseteq P\). Se satisfacen las siguientes condiciones:
     \begin{enumerate}
         \item \(p\in\inte(A)\) si y sólo si \(\abajo p\subseteq A\).
@@ -529,5 +624,176 @@ evitar que se acumulen tantos índices.
         \qedhere
     \end{equation*}
 \end{proof}
+
+\begin{proposition}
+    Si \(n,m\in\omega\), entonces \(u_m(\check{n})\in B\).
+\end{proposition}
+\begin{proof}
+    Veamos que \(u_m(\check{n})\) es un abierto regular. Para esto, primero
+    notemos que \(u_m(\check{n})\) es abierto. Si \(p\in u_m(\check{n})\)
+    y \(q\leq p\), entonces \(p(n,m)=1\) y \(p\subseteq q\). Por lo tanto,
+    \(q(n,m)=1\), es decir, \(q\in u_m(\check{n})\). Con esto tenemos
+    \(u_m(\check{n})\subseteq\inte\cer(u_m(\check{n}))\).
+
+    Ahora tomemos \(p\in\inte\cer(u_m(\check{n}))\). Por el
+    lema~\ref{lema:intercer} se tiene que 
+    \(\abajo p\subseteq\arriba u_m(\check{n})\). Esto es, para cada \(q\leq p\)
+    existe \(r\in u_m(\check{n})\) tal que \(r\leq q\). Veamos, por
+    contradicción, que \((n,m)\in\dom(p)\). Si \((n,m)\notin\dom(p)\), entonces
+    definimos \(q\) de la siguiente manera
+    \begin{equation*}
+        \dom(q)=\dom(p)\cup\set{(n,m)}, \quad q(n,m)=0, 
+        \quad q(s)=p(s) \text{ si } s\in\dom(p).
+    \end{equation*}
+    Es claro que \(q\leq p\). Luego, por lo que se dijo antes, existe 
+    \(r\in u_m(\check{n})\) tal que \(r\leq q\). Con todo esto concluimos
+    \begin{equation*}
+        r(n,m)=1 \quad\text{y}\quad r(n,m)=q(n,m)=0,
+    \end{equation*}
+    lo cual es una contradicción. Por lo tanto, \((n,m)\in\dom(p)\). Ahora, como
+    \(p\leq p\), entonces existe \(r\in u_m(\check{n})\) tal que \(r\leq p\).
+    Esto implica que \(r(n,m)=1\) y así \(p(n,m)=1\). Por lo tanto, 
+    \(p\in u_m(\check{n})\). 
+\end{proof}
+
+Ahora veamos que todos los \(u_m\) son reales en \(\mb\).
+
+\begin{lemma}
+    Para todo \(m\in\omega\) se tiene que 
+    \(\mb\models u_m\subseteq\check{\omega}\).
+\end{lemma}
+\begin{proof}
+    Tenemos que mostrar que \(\vb{u_m\subseteq\check{\omega}}=1\). Por
+    definición, esto significa que debemos mostrar
+    \begin{equation*}
+        \bigwedge_{n\in\omega} u_m(\check{n})\Rightarrow\vb{\check{n}\in\check{\omega}}=1.
+    \end{equation*}
+    Como la fórmula \(x\in\omega\) es \(\Delta_0\) y es válida para todo
+    \(n\in\omega\), entonces \(\vb{\check{n}\in\check{\omega}}=1\) para todo
+    \(n\in\omega\). Por lo tanto, \(\vb{u_m\subseteq\check{\omega}}=1\).
+\end{proof}
+
+Lo siguiente es mostrar que todos los \(u_m\) son distintos en \(\mb\). Para lo
+cual necesitamos usar la relación de forzar y saber cómo se comporta con estos
+conjuntos.
+
+\begin{lemma}
+    Si \(p\in P\) y \(n,m\in\omega\), entonces
+    \begin{enumerate}
+        \item \(p\Vdash\check{n}\in u_m\) si y sólo si \(p(n,m)=1\),
+        \item \(p\Vdash\check{n}\notin u_m\) si y sólo si \(p(n,m)=0\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Para el primer punto, primero supongamos que \(p(n,m)=1\), entonces 
+    \(p\in u_m(\check{n})\). Por lo tanto 
+    \(\abajo p\leq u_m(\check{n})\leq\vb{\check{n}\in u_m}\), es decir, 
+    \(p\Vdash\check{n}\in u_m\).
+
+    Si ahora suponemos que \(p\Vdash\check{n}\in u_m\), entonces
+    \begin{equation*}
+        p\in\abajo p\leq\vb{\check{n}\in u_m}
+        =\bigvee_{k\in\omega} u_m(\check{k})\land\vb{\check{n}=\check{k}}.
+    \end{equation*}
+    Así, \(p(k,m)=1\) y \(k=n\), es decir, \(p(n,m)=1\).
+
+    Para el segundo punto, si \(p(n,m)=0\) entonces, por cómo se fuerza una
+    fórmula negada, debemos demostrar que para todo \(q\leq p\) se tiene que
+    \(q\not\Vdash\check{n}\in u_m\). Supongamos que existe \(q\leq p\) tal que
+    \(q\Vdash\check{n}\in u_m\). Por el primer punto, \(q(n,m)=1\) y como
+    \(q\leq p\), entonces \(q(n,m)=p(n,m)=0\), lo cual es una contradicción. 
+
+    Finalmente, supongamos que \(p\not\Vdash\check{n}\in u_m\). Si suponemos que
+    \(p(n,m)\ne0\), entonces \(p(n,m)=1\) y por el primer punto
+    \(p\Vdash\check{n}\in u_m\), lo cual es una contradicción.
+\end{proof}
+
+Ahora veamos que, en \(\mb\), los \(u_m\) son distintos.
+
+\begin{lemma}
+    Si \(m,m'\in\omega\) y \(m\ne m'\), entonces \(\mb\models u_m\ne u_{m'}\).
+\end{lemma}
+\begin{proof}
+    Sean \(m,m'\in\omega\) tales que \(m\ne m'\). Supongamos que
+    \(\mb\not\models u_m\ne u_{m'}\). Esto último significa que
+    \(\vb{u_m\ne u_{m'}}\ne 1\), es decir, \(\vb{u_m=u_{m'}}\ne 0\). Como el
+    encaje del orden parcial al álgebra de Boole es denso, entonces existe
+    \(p\in P\) tal que \(\abajo p\leq\vb{u_m=u_{m'}}\), es decir, 
+    \(p\Vdash u_m=u_{m'}\).
+
+    Ahora, como \(\dom(p)\) es finito, entonces existe \(n\in\omega\) tal que
+    \((n,k)\notin\dom(p)\) para toda \(k\in\omega\). Luego, definimos \(q\) de
+    la siguiente manera
+    \begin{equation*}
+        q = p\cup\set{((n,m),1),((n,m'),0)}.
+    \end{equation*}
+    Es claro que \(q\leq p\). Por lo tanto, \(q\Vdash u_m=u_{m'}\). Sin embargo,
+    por el lema anterior tenemos que \(q\Vdash\check{n}\in u_m\) y
+    \(q\Vdash\check{n}\notin u_{m'}\), lo cual es una contradicción.
+\end{proof}
+
+Ahora veamos que cada uno de los \(u_m\) es simétrico, es decir, que
+\(\stab(u_m)\in\Gamma\).
+
+\begin{lemma}
+    Si \(m\in\omega\) y \(g\in S_{\omega}\), entonces \(g u_m=u_{gm}\).
+\end{lemma}
+\begin{proof}
+    Veamos que coinciden los dominios y las reglas de correspondencia. Para los
+    dominios consideramos
+    \begin{equation*}
+        \dom(gu_m)=\set{g\check{n}\st n\in\omega}
+        =\set{\check{n}\st n\in\omega}=\dom(u_{gm}).
+    \end{equation*}
+    Para las reglas de correspondencia, si \(n\in\omega\), entonces
+    \begin{align*}
+        gu_m(\check{n}) & =gu_m(g\check{n}) \\
+        & =g\cdot u_m(\check{n}) \\
+        & =(g^*)^{-1}[\set{q\in P\st q(n,m)=1}] \\
+        & =\set{q\in P\st g^*q(n,m)=1} \\
+        & =\set{q\in P\st q(n,gm)=1} \\
+        & =u_{gm}(\check{n}).
+        \qedhere
+    \end{align*}
+\end{proof}
+
+Conn este lema podemos notar que si \(g\in\stab(m)\) entonces \(gu_m=u_m\), es
+decir, \(\stab(m)\subseteq\stab(u_m)\). Por lo tanto, \(\stab(u_m)\in\Gamma\).
+Así, \(u_m\in\mg\) para cada \(m\in\omega\).
+
+Como los valores booleanos de fórmulas con parámetros en \(\mg\) son los mismos
+que en \(\mb\) y al acción de \(S_{\omega}\) sobre \(\mg\) es la restricción de
+la acción sobre \(\mb\), los resultados anteriores se mantienen en \(\mg\).
+
+\begin{corollary}
+    Sean \(m,m'\in\omega\) tales que \(m\ne m'\). Entonces,
+    \begin{enumerate}
+        \item \(\mg\models u_m\subseteq\check{\omega}\),
+        \item \(\mg\models u_m\ne u_{m'}\).
+    \end{enumerate}
+\end{corollary}
+
+Lo que nos hace falta es definir al conjunto de todos los \(u_m\) en \(\mg\) y
+mostrar que es infinito en el sentido de Cantor pero finito en el de Dedekind.
+Definimos el conjunto \(a\in\mb\) de la siguiente manera
+\begin{equation*}
+    \dom(a)=\set{u_m\st m\in\omega}, \quad a(u_m)=1.
+\end{equation*}
+Lo primero será mostrar que \(a\in\mg\).
+
+\begin{lemma}
+    \(\stab(a)=S_{\omega}\).
+\end{lemma}
+\begin{proof}
+    Sea \(g\in S_{\omega}\) y consideramos
+    \begin{alignat*}{2}
+        \dom(ga)&=\set{gu_m\st m\in\omega} &\qquad ga(u_m)&=ga(gu_{m'})\\
+        &=\set{u_{gm}\st m\in\omega} & &=g\cdot a(u_{m'})\\
+        &=\set{u_{m}\st m\in\omega} & &=g\cdot 1\\
+        &=\dom(a) & &=1=a(u_{m}). \tag*{\qedhere}
+    \end{alignat*}
+\end{proof}
+
+
 
 \end{document}

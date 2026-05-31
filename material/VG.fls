@@ -137,7 +137,7 @@ INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hluatex.def
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/bookmark/bookmark.sty
-INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/bookmark/bkm-luatex.def
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/stix2-type1/t1stix2.fd
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/stix2-type1/t1-stix2text.tfm
 INPUT ./VG.aux
