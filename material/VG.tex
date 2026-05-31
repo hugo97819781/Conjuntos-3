@@ -50,6 +50,8 @@
     \DeclareMathOperator{\abajo}{\downarrow}                   %abajo 
     \DeclareMathOperator{\inte}{int}                           %interior
     \DeclareMathOperator{\cer}{cl}                             %cerradura
+    \DeclareMathOperator{\fun}{fun}                            %función
+    \DeclareMathOperator{\iny}{iny}                            %inyectiva        
     \NewDocumentCommand{\est}{m}{\mathfrak{#1}}                %estructura  
 %conjuntos
 \newcommand{\st}{}                                              
@@ -710,7 +712,7 @@ conjuntos.
 
 Ahora veamos que, en \(\mb\), los \(u_m\) son distintos.
 
-\begin{lemma}
+\begin{lemma}[label=lema:ums]
     Si \(m,m'\in\omega\) y \(m\ne m'\), entonces \(\mb\models u_m\ne u_{m'}\).
 \end{lemma}
 \begin{proof}
@@ -735,7 +737,7 @@ Ahora veamos que, en \(\mb\), los \(u_m\) son distintos.
 Ahora veamos que cada uno de los \(u_m\) es simétrico, es decir, que
 \(\stab(u_m)\in\Gamma\).
 
-\begin{lemma}
+\begin{lemma}[label=lema:gum]
     Si \(m\in\omega\) y \(g\in S_{\omega}\), entonces \(g u_m=u_{gm}\).
 \end{lemma}
 \begin{proof}
@@ -765,7 +767,7 @@ Como los valores booleanos de fórmulas con parámetros en \(\mg\) son los mismo
 que en \(\mb\) y al acción de \(S_{\omega}\) sobre \(\mg\) es la restricción de
 la acción sobre \(\mb\), los resultados anteriores se mantienen en \(\mg\).
 
-\begin{corollary}
+\begin{corollary}[label=cor:um]
     Sean \(m,m'\in\omega\) tales que \(m\ne m'\). Entonces,
     \begin{enumerate}
         \item \(\mg\models u_m\subseteq\check{\omega}\),
@@ -794,6 +796,160 @@ Lo primero será mostrar que \(a\in\mg\).
     \end{alignat*}
 \end{proof}
 
+Como \(\stab(a)=S_{\omega}\in\Gamma\), entonces \(a\in\mg\). Ahora veamos que el
+conjunto \(a\) es infinito en el sentido de Cantor. Esta parte todavía se podría
+escribir y demostrar en \(\mb\), pero la escribimos en \(\mg\). Aún así, los
+argumentos usarán la relación de forzar, algo que en principio sólo se definió
+en \(\mb\).
 
+\begin{corollary}
+    \(\mg\models a\text{ es infinito en el sentido de Cantor}\).
+\end{corollary}
+\begin{proof}
+    Supongamos que no, es decir, que existe \(p\in P\) tal que
+    \begin{equation*}
+        p\Vdash a \text{ es finito en el sentido de Cantor}.
+    \end{equation*}
+    Esto significa que existen \(n\in\omega\) y \(f\) tales que
+    \begin{equation*}
+        p\Vdash f\colon a\to\check{n} \text{ es biyectiva}.
+    \end{equation*}
+    Por el corolario~\ref{cor:um} se tiene que existen \(m,m'\in\omega\) con
+    \(m\ne m'\) tales que
+    \begin{equation*}
+        p\Vdash f(u_m)=f(u_{m'}).
+    \end{equation*}
+    Como además p fuerza que \(f\) es biyectiva, entonces \(p\Vdash
+    u_m=u_{m'}\), lo cual es una contradicción.
+\end{proof}
+
+\textbf{Pendiente: revisar que sí sea \(p\) quien fuerza todo lo anterior. 
+Creo que podría ser alguien menor o igual a \(p\).}
+
+Por último, veamos que el conjunto \(a\) es finito en el sentido de Dedekind.
+Para esto necesitaremos dos lemas
+
+\begin{lemma}[label=lema:forzarxena]
+    \(p\Vdash x\in a\) si y sólo si 
+    \(\forall q\leq p\exists m\in\omega\exists r\leq q (r\Vdash x=u_m)\).
+\end{lemma}
+\begin{proof}
+    La demostración es la siguiente sucesión de equivalencias:
+    \begin{align*}
+        p\Vdash x\in a 
+        & \iff \abajo p\leq\vb{x\in a}=\bigvee_{m\in\omega}\vb{x=u_m} \\
+        & \iff \abajo p\land \neg\bigvee_{m\in\omega}\vb{x=u_m}=0 \\
+        & \iff \abajo p\land\bigwedge_{m\in\omega}\vb{x\ne u_m}=0 \\
+        & \iff \forall q\leq p(\abajo q\not\leq\bigwedge_{m\in\omega}\vb{x\ne u_m}) \\
+        & \iff \forall q\leq p\exists m\in\omega(\abajo q\not\leq\vb{x\ne u_m}) \\
+        & \iff \forall q\leq p\exists m\in\omega(\abajo q\land\vb{x=u_m}\ne 0) \\
+        & \iff \forall q\leq p\exists m\in\omega\exists r\leq q(\abajo r\leq\vb{x=u_m}) \\
+        & \iff \forall q\leq p\exists m\in\omega\exists r\leq q(r\Vdash x=u_m).
+         \qedhere
+    \end{align*}
+\end{proof}
+
+\begin{lemma}[label=lema:tecnico]
+    Sean \(p\in P\), \(J\subseteq\omega\) finito y \(n\notin J\). Entonces,
+    existe \(g\in\stab(J)\) tal que \(g=g^{-1}\), \(gn\ne n\) y 
+    \(\abajo p \land g\cdot\abajo p\ne 0\).
+\end{lemma}
+\begin{proof}
+    Sea \(m\notin J\cup\set{n}\) tal que \((k,m)\notin\dom(p)\) para todo
+    \(k\in\omega\) y consideramos el biciclo \(g=(nm)\). Es claro
+    que \(g^{-1}=g\). Como \(n,m\notin J\), entonces \(g\in\stab(J)\). Además,
+    se tiene que \(gn=m\ne n\). Con esto sólo falta ver que se cumple la última
+    condición del enunciado del lema.
+
+    Por la definición de la acción en el álgebra de Boole, como imagen inversa,
+    queremos demostrar
+    \begin{equation*}
+        \set{q\in P\st q\leq p}\cap\set{q\in P\st g^*q\leq p}\ne\emptyset.
+    \end{equation*}
+    En otras palabras, queremos encontrar una extensión de \(p\) que satisfaga
+    que su acción con \(g\) siga extendiendo a \(p\). Para que esto suceda
+    extendemos el dominio de \(p\) de la siguiente manera:
+    \begin{equation*}
+        \dom(q)=\dom(p)\cup\set{(r,gs)\st (r,s)\in\dom(p)}.
+    \end{equation*}
+    Luego, la regla de evaluación de \(q\) debe asegurar que extienda a \(p\),
+    es decir, si \((r,s)\in\dom(p)\), entonces \(q(r,s)=p(r,s)\). Finalmente, la
+    otra parte del dominio de \(q\) servirá para que \(g^*q\) también extienda a
+    \(p\). Esto es, si \((r,s)\in\dom(p)\), entonces \(q(r,gs)=p(r,s)\).
+
+    Es fácil notar que \(p\leq q\). Además, notemos que \(\dom(g^*q)=\dom(q)\),
+    pues \(g^{-1}=g\), por lo que \(\dom(p)\subseteq\dom(g^*q)\). Finalmente, si
+    \((r,s)\in\dom(p)\) entonces \(g^*q(r,s)=q(r,gs)=p(r,s)\). Por lo tanto,
+    \(p\leq g^*q\).
+\end{proof}
+
+Una observación sobre la demostración del lema anterior es que necesitamos tomar
+\(m\) de tal forma que \((k,m)\notin\dom(p)\) para toda \(k\in\omega\) ya que si
+sucediera que \((k,m),(k,n)\in\dom(p)\) y \(p(k,m)\ne p(k,n)\) entonces habría
+sido imposible lograr que tanto \(q\) como \(g^*q\) extiendan a \(p\), pues
+tendría que suceder
+\begin{equation*}
+    p(k,n)=g^*q(k,n)=q(k,gn)=q(k,m)=p(n,m).
+\end{equation*}
+Otra observación es que el dominio de \(q\) es casi el mismo que el de \(p\) ya
+que \(gs=s\) a menos que \(s=n\), en cuyo caso \(\dom(q)\) tiene un sólo
+elemento más que \(\dom(p)\), a saber \((r,m)\).
+
+Ahora estamos en condiciones de demostrar que el conjunto \(a\in\mg\) es finito
+en el sentido de Dedekind.
+
+\begin{theorem}
+    Para toda \(f\in\mg\) se satisface
+    \begin{equation*}
+        \vb{\fun(f)\land\iny(f)\land\dom(f)=\check{\omega}\land\im(f)\subseteq a}=0.
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    Supongamos que no, es decir, existe \(p\in P\) tal que 
+    \begin{equation}
+    \label{ec:dfin}
+        p\Vdash\fun(f)\land\iny(f)\land\dom(f)=\check{\omega}\land\im(f)\subseteq a.
+    \end{equation}
+    Como \(f\in\mg\), entonces existe \(J\subseteq\omega\) finito tal que
+    \(\stab(J)\subseteq\stab(f)\), digamos que \(J=\set{m_1,\dots,m_j}\).
+    Por~\eqref{ec:dfin} tenemos que
+    \begin{equation*}
+        p\Vdash\exists x\in\check{\omega}(f(x)\ne u_{m_1}\land\dots\land f(x)\ne u_{m_j}).
+    \end{equation*}
+    Por lo tanto existen \(n\in\omega\) y \(q\leq p\) tales que
+    \begin{equation*}
+        q\Vdash f(\check{n})\ne u_{m_1}\land\dots\land f(\check{n})\ne u_{m_j}.
+    \end{equation*}
+    Además, como \(q\leq p\) se tiene que \(q\Vdash f(\check{n})\in a\). Por el
+    lema~\ref{lema:forzarxena} existen \(m\in\omega\) y \(r\leq q\) tales que
+    \begin{equation}\label{ec:fn1}
+        r\Vdash f(\check{n})=u_m.
+    \end{equation}
+    De esta manera tenemos que \(m\notin J\), por lo que podemos aplicar el 
+    lema~\ref{lema:tecnico} para obtener \(g\in\stab(J)\) tal que \(g^{-1}=g\),
+    \(gm\ne m\) y \(\abajo r\land g\cdot\abajo r\ne 0\). Además, recordemos que,
+    por la proposición~\ref{prop:afor} sucede
+    \(\vb{\varphi(gx)}=g\cdot\vb{\varphi(x)}\). Como la acción en el álgebra de
+    Boole es por automorfismos, \(g\in\stab(J)\) y el lema~\ref{lema:gum} se
+    tiene que
+    \begin{equation}\label{ec:fn2}
+        gr\Vdash f(\check{n})=u_{gm}.
+    \end{equation}
+    Finalmente, como \(\abajo r\land g\cdot\abajo r\ne 0\), entonces existe 
+    \(s\leq r, gr\). Por las ecuaciones~\eqref{ec:fn1} y~\eqref{ec:fn2}
+    obtenemos
+    \begin{equation*}
+        s\Vdash f(\check{n})=u_m \quad\text{y}\quad
+        s\Vdash f(\check{n})=u_{gm}.
+    \end{equation*}
+    Como \(gm\ne m\), el lema~\ref{lema:ums} implica que tenemos una
+    contradicción.
+\end{proof}
+
+Este teorema afirma que cualquier función inyectiva 
+\(f\colon\check{\omega}\to a\) no puede estar \(\mg\). Por lo que \(a\) es
+finito en el sentido de Dedekind. Así, el conjunto \(a\in\mg\) es infinito en el
+sentido de Cantor y finito en el de Dedekind. Por lo tanto, el axioma de
+elección no se satisface en \(\mg\). 
 
 \end{document}

@@ -1,8 +1,8 @@
 # Fdb version 4
-["lualatex"] 1780193679.38577 "/home/luis/Documentos/Cursos/Con3/Conjuntos-3/material/VG.tex" "VG.pdf" "VG" 1780193681.96515 0
+["lualatex"] 1780259276.63926 "/home/luis/Documentos/Cursos/Con3/Conjuntos-3/material/VG.tex" "VG.pdf" "VG" 1780259280.2508 0
   "/home/luis/.texlive2026/texmf-var/luatex-cache/generic/fonts/otl/lmroman12-regular.luc" 1778458696.36337 127670 e9488709ecbb9088bc7e0315c96def49 ""
   "/home/luis/.texlive2026/texmf-var/luatex-cache/generic/names/luaotfload-names.luc.gz" 1780091650.28756 391336 4b12112618a5958addd9f4118fd800f3 ""
-  "/home/luis/Documentos/Cursos/Con3/Conjuntos-3/material/VG.tex" 1780193679.14611 34157 829c134aad87656ef3149ed2e6b77e4b ""
+  "/home/luis/Documentos/Cursos/Con3/Conjuntos-3/material/VG.tex" 1780259276.34148 41549 28502ad8fdfe5e8d7dbec5df033df421 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmr12.tfm" 1254269338 12092 7b1546e2d096cfd5dcbd4049b0b1ec2e ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmss12.tfm" 1254269338 11232 955a7245396175d9219648eadc654ac9 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/ec-lmssbx10.tfm" 1254269338 11168 06d87f5698fd1b642d96449b7c8d90b0 ""
@@ -175,8 +175,8 @@
   "/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1779856040 5573038 ad3e0d8c63dbec7957113a2386d66888 ""
   "/usr/local/texlive/2026/texmf-var/tex/generic/config/language.dat" 1777429069.13611 6874 766aab83bb1864530cd38debb97b6aba ""
   "/usr/local/texlive/2026/texmf-var/web2c/luahbtex/lualatex.fmt" 1779856244 5675037 84aebcb257f5c3174e1f3224c4dbc4ce ""
-  "VG.aux" 1780193681.77111 4011 c25645de4565eef31db69a7fd2027db5 "lualatex"
-  "VG.tex" 1780193679.14611 34157 829c134aad87656ef3149ed2e6b77e4b ""
+  "VG.aux" 1780259279.96796 4850 6eaa450b114c982dc69673664cf94495 "lualatex"
+  "VG.tex" 1780259276.34148 41549 28502ad8fdfe5e8d7dbec5df033df421 ""
   (generated)
   "VG.aux"
   "VG.log"
